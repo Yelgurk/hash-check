@@ -1,6 +1,7 @@
 ﻿using Avalonia.Controls;
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using HashCheck.Views;
 
 namespace HashCheck.ViewModels
 {
@@ -9,6 +10,8 @@ namespace HashCheck.ViewModels
         public required ContentControl View { get; init; }
 
         public required IWindowContentService WindowContentService { get; init; }
+
+        public void DisplayMainPage() => WindowContentService.Set<FileAwait>();
     }
 
     public static class ContentControlExtensions

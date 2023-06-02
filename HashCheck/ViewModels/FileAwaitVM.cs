@@ -1,7 +1,10 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
+using Avalonia.Input;
 using CommunityToolkit.Mvvm.Input;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -12,6 +15,12 @@ namespace HashCheck.ViewModels
 {
     public partial class FileAwaitVM : VMBase
     {
+        public async Task DropFileAndDir(object sender, DragEventArgs e)
+        {
+            if (e.Data.Contains(DataFormats.FileNames))
+                await PathTreeParser(e.Data.GetFileNames()!.ToArray());
+        }
+
         [RelayCommand]
         async Task PeekFile()
         {
@@ -20,25 +29,7 @@ namespace HashCheck.ViewModels
             string[]? paths = await openFileDialog.ShowAsync(this.View.ParentWindow()!);
 
             if (paths is not null)
-            {
-                List<string> for_analyze = paths
-                    .SelectMany(p =>
-                    {
-                        if (File.Exists(p))
-                            return new[] { p };
-                        else if (Directory.Exists(p))
-                            return Directory.EnumerateFiles(p, "*", SearchOption.AllDirectories);
-                        else
-                            return Enumerable.Empty<string>();
-                    }).ToList();
-
-                if (for_analyze.Count == 1)
-                    WindowContentService.Set<SingleAnalysisResult>();
-                else if (for_analyze.Count > 1)
-                    WindowContentService.Set<MultiAnalysisResult>();
-
-                App.Host!.Services.GetRequiredService<HashComputator>()!.Calculate(for_analyze);
-            }
+                PathTreeParser(paths);
         }
 
         [RelayCommand]
@@ -49,16 +40,28 @@ namespace HashCheck.ViewModels
             string? path = await openFolderDialog.ShowAsync(this.View.ParentWindow()!);
 
             if (path is not null && Directory.Exists(path))
-            {
-                List<string> for_analyze = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories).ToList();
+                PathTreeParser(new[] { path });
+        }
 
-                if (for_analyze.Count == 1)
-                    WindowContentService.Set<SingleAnalysisResult>();
-                else if (for_analyze.Count > 1)
-                    WindowContentService.Set<MultiAnalysisResult>();
+        private async Task PathTreeParser(string[] headers)
+        {
+            List<string> forAnalyze = headers
+                    .SelectMany(p =>
+                    {
+                        if (File.Exists(p))
+                            return new[] { p };
+                        else if (Directory.Exists(p))
+                            return Directory.EnumerateFiles(p, "*", SearchOption.AllDirectories);
+                        else
+                            return Enumerable.Empty<string>();
+                    }).ToList();
 
-                App.Host!.Services.GetRequiredService<HashComputator>()!.Calculate(for_analyze);
-            }
+            if (forAnalyze.Count == 1)
+                WindowContentService.Set<SingleAnalysisResult>();
+            else if (forAnalyze.Count > 1)
+                WindowContentService.Set<MultiAnalysisResult>();
+
+            App.Host!.Services.GetRequiredService<HashComputator>()!.Calculate(forAnalyze);
         }
     }
 }

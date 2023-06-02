@@ -30,5 +30,9 @@
 			  </DataTemplate>
 		  </DropDown.ItemTemplate>
 	  </DropDown>
+
+	  <Button VerticalAlignment="Top" HorizontalAlignment="Right"
+			  Width="60" Height="30" Margin="10 50 10 10" Content="Назад"
+			  Command="{Binding	DisplayMainPage}"/>
   </Grid>
 </UserControl>
