@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:HashCheck.ViewModels"
+             x:Class="HashCheck.Views.MultiAnalysisResult">
+  <UserControl.DataContext>
+    <vm:MultiAnalysisResultVM/>
+  </UserControl.DataContext>
+  
+  <Grid>
+	  <ListBox Items="{Binding Computator.Result}">
+		  <ListBox.ItemTemplate>
+			  <DataTemplate>
+				  <StackPanel>
+					  <TextBlock Text="{Binding FileName}" FontSize="18" />
+					  <TextBlock Text="{Binding FilePath}" FontSize="18" />
+					  <TextBlock Text="{Binding FileHash}" FontSize="18" />
+				  </StackPanel>
+			  </DataTemplate>
+		  </ListBox.ItemTemplate>
+      </ListBox>
+
+	  <DropDown Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right"
+				  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
+		  <DropDown.ItemTemplate>
+			  <DataTemplate>
+				  <TextBlock Text="{Binding HashName}" FontSize="14" />
+			  </DataTemplate>
+		  </DropDown.ItemTemplate>
+	  </DropDown>
+  </Grid>
+</UserControl>

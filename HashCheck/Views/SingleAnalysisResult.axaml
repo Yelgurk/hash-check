@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:HashCheck.ViewModels"
+             x:Class="HashCheck.Views.SingleAnalysisResult">
+
+  <UserControl.DataContext>
+    <vm:SingleAnalysisResultVM/>
+  </UserControl.DataContext>
+  
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="150"/>
+			<ColumnDefinition/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+			<TextBlock Text="{Binding Computator.Result[0].FileName}"/>
+			<TextBlock Text="Размер файла"/>
+		</StackPanel>
+
+		<TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"
+				   Text="{Binding Computator.Result[0].FilePath}"/>
+
+		<ComboBox Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
+				  Items="{Binding Comparator.Hashes}"/>
+
+		<DropDown Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
+				  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
+			<DropDown.ItemTemplate>
+				<DataTemplate>
+						<TextBlock Text="{Binding HashName}" FontSize="14" />
+				</DataTemplate>
+			</DropDown.ItemTemplate>
+		</DropDown>
+		
+		<StackPanel Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center">
+			<TextBlock Text="{Binding Computator.Result[0].FileHash}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

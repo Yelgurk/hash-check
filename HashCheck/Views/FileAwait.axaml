@@ -1,0 +1,31 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:HashCheck.ViewModels"
+			 xmlns:i="clr-namespace:"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HashCheck.Views.FileAwait">
+    <UserControl.DataContext>
+        <vm:FileAwaitVM/>
+    </UserControl.DataContext>
+
+    <Border Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent"
+			DragDrop.AllowDrop="True">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Перетащите файл, либо"/>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Button Content="Файл" Command="{Binding PeekFileCommand}"
+						Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+
+				<Button Content="Папка" Command="{Binding PeekFolderCommand}"
+						Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+			</Grid>
+        </StackPanel>
+    </Border>
+</UserControl>
