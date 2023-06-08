@@ -80,12 +80,4 @@ public partial class HashComputator : ObservableObject
         Result.Clear();
         await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileName = path, FilePath = path, FileHash = SelectedHash.HashMethod(path) })));
     }
-
-    /*
-    private string ComputeHash<T>(string filePath) where T : HashAlgorithm
-    {
-        using (FileStream fs = new FileStream(filePath, FileMode.Open))
-            return BitConverter.ToString(T.Create().ComputeHash(fs)).Replace("-", "");
-    }
-    */
 }

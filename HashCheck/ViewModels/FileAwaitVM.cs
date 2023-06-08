@@ -15,10 +15,23 @@ namespace HashCheck.ViewModels
 {
     public partial class FileAwaitVM : VMBase
     {
+        public async Task ShowMessage(string msg, decimal centenary, double year)
+        {
+            await Task.Delay(0);
+            Debug.WriteLine(msg + centenary + year);
+        }
+
         public async Task DropFileAndDir(object sender, DragEventArgs e)
         {
             if (e.Data.Contains(DataFormats.FileNames))
                 await PathTreeParser(e.Data.GetFileNames()!.ToArray());
+        }
+
+        public async Task DragOverAccess(object sender, DragEventArgs e)
+        {
+            e.DragEffects = e.DragEffects & DragDropEffects.Link;
+            if (!e.Data.Contains(DataFormats.FileNames))
+                e.DragEffects = DragDropEffects.None;
         }
 
         [RelayCommand]
@@ -43,7 +56,7 @@ namespace HashCheck.ViewModels
                 PathTreeParser(new[] { path });
         }
 
-        private async Task PathTreeParser(string[] headers)
+        public async Task PathTreeParser(string[] headers)
         {
             List<string> forAnalyze = headers
                     .SelectMany(p =>

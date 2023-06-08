@@ -3,15 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:HashCheck.ViewModels"
-			 xmlns:i="clr-namespace:"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:e="clr-namespace:EventBinder;assembly=EventBinder.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HashCheck.Views.FileAwait">
     <UserControl.DataContext>
         <vm:FileAwaitVM/>
     </UserControl.DataContext>
 
-    <Border Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent"
-			DragDrop.AllowDrop="True">
+    <Border MouseLeftButtonDown="{e:EventBinding ShowMessage, `Happy `, 20m, 20.0 }" Name="df"
+			
+			Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Перетащите файл, либо"/>
 			<Grid>
