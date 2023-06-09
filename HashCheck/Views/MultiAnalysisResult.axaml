@@ -17,7 +17,13 @@
 				  <StackPanel>
 					  <TextBlock Text="{Binding FileName}" FontSize="18" />
 					  <TextBlock Text="{Binding FilePath}" FontSize="18" />
-					  <TextBlock Text="{Binding FileHash}" FontSize="18" />
+					  <ListBox Items="{Binding FileHash}">
+						  <ListBox.ItemTemplate>
+							  <DataTemplate>
+								  <TextBlock Text="{Binding}"/>
+							  </DataTemplate>
+						  </ListBox.ItemTemplate>
+					  </ListBox>
 				  </StackPanel>
 			  </DataTemplate>
 		  </ListBox.ItemTemplate>

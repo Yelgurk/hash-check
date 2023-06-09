@@ -23,13 +23,27 @@
 			<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock Text="{Binding Computator.Result[0].FileName}" FontSize="18"/>
 				<TextBlock Text="{Binding Computator.Result[0].FilePath}" FontSize="12"/>
-				<TextBlock Text="{Binding Computator.Result[0].FileHash}" FontSize="24"/>
+				<ListBox Items="{Binding Computator.Result[0].FileHash}"
+						 VerticalAlignment="Center" HorizontalAlignment="Center">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 
 			<StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<TextBlock Text="{Binding Computator.Result[1].FileName}" FontSize="18"/>
 				<TextBlock Text="{Binding Computator.Result[1].FilePath}" FontSize="12"/>
-				<TextBlock Text="{Binding Computator.Result[1].FileHash}" FontSize="24"/>
+				<ListBox Items="{Binding Computator.Result[1].FileHash}"
+						 VerticalAlignment="Center" HorizontalAlignment="Center">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 
 			<Grid Grid.ColumnSpan="2" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">

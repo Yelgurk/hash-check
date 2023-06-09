@@ -19,9 +19,9 @@ namespace HashCheck.Models
         public string FilePath => string.IsNullOrEmpty(FileFullPath) ? "" : FileFullPath!.Substring(0, FileFullPath.LastIndexOf('\\'));
 
         [ObservableProperty]
-        private string? fileHash;
+        private List<string>? fileHash;
 
-        public static bool operator ==(ResultModel Result1, ResultModel Result2) => Result1.FileHash == Result2.FileHash;
-        public static bool operator !=(ResultModel Result1, ResultModel Result2) => Result1.FileHash != Result2.FileHash;
+        public static bool operator ==(ResultModel Result1, ResultModel Result2) => !Result1.FileHash!.Select<string, bool>((hash) => Result2.FileHash!.Contains(hash)).Contains(false);
+        public static bool operator !=(ResultModel Result1, ResultModel Result2) => Result1.FileHash!.Select<string, bool>((hash) => Result2.FileHash!.Contains(hash)).Contains(false);
     }
 }

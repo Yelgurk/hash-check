@@ -86,7 +86,14 @@ public partial class HashComputator : ObservableObject
     public async Task Calculate()
     {
         Result.Clear();
-        await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileFullPath = path, FileHash = SelectedHash!.HashMethod(path) })));
+        await Task.Run(() =>
+            FilePaths.ForEach(path =>
+                Result.Add(new ResultModel()
+                {
+                    FileFullPath = path,
+                    FileHash = Hashes.Where((hash) => hash.IsSelected).Select<HashModel, string>((selected) => selected.HashMethod(path)).ToList()
+                })));
+
         OnPropertyChanged(nameof(IsHashesEqual));
     }
 

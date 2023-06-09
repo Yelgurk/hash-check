@@ -50,7 +50,14 @@
 					Command="{Binding	DisplayMainPage}"/>
 		
 			<StackPanel Grid.ColumnSpan="3" Grid.Row="1" VerticalAlignment="Center">
-				<TextBlock Text="{Binding Computator.Result[0].FileHash}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				<ListBox Items="{Binding Computator.Result[0].FileHash}"
+						 VerticalAlignment="Center" HorizontalAlignment="Center">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"/>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 		</Grid>
 

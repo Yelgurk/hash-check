@@ -50,10 +50,15 @@ public partial class SettingFile : ObservableObject, IDisposable
             JsonNode jObj = JsonObject.Parse(fs)!;
             Theme = JsonSerializer.Deserialize<ProgTheme>(jObj!["Theme"]);
 
-            foreach(HashModel progHash in this.Hashes)
-                foreach(HashModel settHash in JsonSerializer.Deserialize<ObservableCollection<HashModel>>(jObj!["Hashes"])!)
-                    if (progHash.HashName == settHash.HashName)
-                        progHash.LoadSelectState = settHash.IsSelected;
+            if (JsonSerializer.Deserialize<ObservableCollection<HashModel>>(jObj!["Hashes"])!.Count == this.Hashes.Count)
+            {
+                foreach (HashModel progHash in this.Hashes)
+                    foreach (HashModel settHash in JsonSerializer.Deserialize<ObservableCollection<HashModel>>(jObj!["Hashes"])!)
+                        if (progHash.HashName == settHash.HashName)
+                            progHash.LoadSelectState = settHash.IsSelected;
+            }
+            else
+                IsDataValid = false;
         }
 
         if (!IsDataValid)
