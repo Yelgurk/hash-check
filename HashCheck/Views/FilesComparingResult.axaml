@@ -3,47 +3,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
+			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="HashCheck.Views.FilesComparingResult">
+             x:Class="HashCheck.Views.FilesComparingResult"
+			 DragDrop.AllowDrop="True"
+			 Background="Transparent">
 
-  <UserControl.DataContext>
-    <vm:FilesComparingResultVM/>
-  </UserControl.DataContext>
+	<UserControl.DataContext>
+		<vm:FilesComparingResultVM/>
+	</UserControl.DataContext>
 
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition/>
-      <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
+	<Grid>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
 
-    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <TextBlock Text="{Binding Computator.Result[0].FileName}" FontSize="18"/>
-      <TextBlock Text="{Binding Computator.Result[0].FilePath}" FontSize="12"/>
-      <TextBlock Text="{Binding Computator.Result[0].FileHash}" FontSize="24"/>
-    </StackPanel>
+			<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock Text="{Binding Computator.Result[0].FileName}" FontSize="18"/>
+				<TextBlock Text="{Binding Computator.Result[0].FilePath}" FontSize="12"/>
+				<TextBlock Text="{Binding Computator.Result[0].FileHash}" FontSize="24"/>
+			</StackPanel>
 
-    <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <TextBlock Text="{Binding Computator.Result[1].FileName}" FontSize="18"/>
-      <TextBlock Text="{Binding Computator.Result[1].FilePath}" FontSize="12"/>
-      <TextBlock Text="{Binding Computator.Result[1].FileHash}" FontSize="24"/>
-    </StackPanel>
+			<StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock Text="{Binding Computator.Result[1].FileName}" FontSize="18"/>
+				<TextBlock Text="{Binding Computator.Result[1].FilePath}" FontSize="12"/>
+				<TextBlock Text="{Binding Computator.Result[1].FileHash}" FontSize="24"/>
+			</StackPanel>
 
-    <Grid Grid.ColumnSpan="2" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
-      <Ellipse Width="50" Height="50" Stroke="Green" StrokeThickness="2"/>
-      <TextBlock  FontSize="16" Text="{Binding Computator.IsHashesEqual}" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-    </Grid>
+			<Grid Grid.ColumnSpan="2" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Ellipse Width="50" Height="50" Stroke="Green" StrokeThickness="2"/>
+				<TextBlock  FontSize="16" Text="{Binding Computator.IsHashesEqual}" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Grid>
 
-	<DropDown Grid.ColumnSpan="2" Width="80" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Right"
-			  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
-		<DropDown.ItemTemplate>
-			<DataTemplate>
-				<TextBlock Text="{Binding HashName}" FontSize="14" />
-			</DataTemplate>
-		</DropDown.ItemTemplate>
-	</DropDown>
+			<DropDown Grid.ColumnSpan="2" Width="80" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Right"
+					  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
+				<DropDown.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding HashName}" FontSize="14" />
+					</DataTemplate>
+				</DropDown.ItemTemplate>
+			</DropDown>
 
-	<Button Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right"
-			Width="60" Height="30" Margin="0 60 25 0" Content="Назад"
-			Command="{Binding DisplayMainPage}"/>
-  </Grid>
+			<Button Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right"
+					Width="60" Height="30" Margin="0 60 25 0" Content="Назад"
+					Command="{Binding DisplayMainPage}"/>
+		</Grid>
+
+		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
+	</Grid>
 </UserControl>

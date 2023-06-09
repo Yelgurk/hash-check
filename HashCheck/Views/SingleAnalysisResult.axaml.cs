@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using HashCheck.ViewModels;
+using System.Text.Json;
 
 namespace HashCheck.Views
 {

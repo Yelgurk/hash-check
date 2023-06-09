@@ -19,8 +19,8 @@ public partial class HashComputator : ObservableObject
 {
     IWindowContentService WindowContentService;
 
-    private HashModel? _selectedHash;
-    public HashModel SelectedHash
+    private IHashModel? _selectedHash;
+    public IHashModel SelectedHash
     {
         get => _selectedHash ?? new HashModel() { HashName = "init" };
         set
@@ -30,7 +30,7 @@ public partial class HashComputator : ObservableObject
         }
     }
 
-    public ObservableCollection<HashModel> Hashes { get; } = new ObservableCollection<HashModel>();
+    public ObservableCollection<IHashModel> Hashes { get; } = new ObservableCollection<IHashModel>();
 
     public List<string> FilePaths { get; set; } = new List<string>();
 
@@ -86,7 +86,7 @@ public partial class HashComputator : ObservableObject
     public async Task Calculate()
     {
         Result.Clear();
-        await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileFullPath = path, FileHash = SelectedHash.HashMethod(path) })));
+        await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileFullPath = path, FileHash = (SelectedHash as HashModel)!.HashMethod(path) })));
         OnPropertyChanged(nameof(IsHashesEqual));
     }
 

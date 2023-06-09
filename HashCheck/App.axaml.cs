@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Avalonia.Controls;
 using Avalonia.Input;
+using HashCheck.Models;
 
 namespace HashCheck;
 
@@ -30,10 +31,13 @@ public partial class App : Application
                 services.AddSingleton<FilesComparingResult>();
                 services.AddTransient<IWindowContentService, WindowContentService>();
                 services.AddSingleton<HashComputator>();
+                services.AddSingleton<SettingFile>();
+                services.AddSingleton<Settings>();
             })
             .Build();
 
         Host.Services.GetRequiredService<MainWindow>().Content = Host.Services.GetRequiredService<FileAwait>();
+        Host.Services.GetRequiredService<Settings>();
     }
 
     public override void OnFrameworkInitializationCompleted()
