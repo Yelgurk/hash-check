@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HashCheck.Models;
+using HashCheck.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +17,8 @@ namespace HashCheck;
 
 public partial class HashComputator : ObservableObject
 {
+    IWindowContentService WindowContentService;
+
     private HashModel? _selectedHash;
     public HashModel SelectedHash
     {
@@ -32,8 +36,12 @@ public partial class HashComputator : ObservableObject
 
     public ObservableCollection<ResultModel> Result { get; } = new ObservableCollection<ResultModel>();
 
-    public HashComputator()
+    public bool IsHashesEqual => Result.Count != 2 ? false : Result[0] == Result[1];
+
+    public HashComputator(IWindowContentService _windowContentService)
     {
+        this.WindowContentService = _windowContentService;
+
         Hashes.Add(new HashModel()
         {
             HashName = "MD5",
@@ -78,6 +86,35 @@ public partial class HashComputator : ObservableObject
     public async Task Calculate()
     {
         Result.Clear();
-        await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileName = path, FilePath = path, FileHash = SelectedHash.HashMethod(path) })));
+        await Task.Run(() => FilePaths.ForEach(path => Result.Add(new ResultModel() { FileFullPath = path, FileHash = SelectedHash.HashMethod(path) })));
+        OnPropertyChanged(nameof(IsHashesEqual));
+    }
+
+    public async Task PathTreeParser(string[] headers, bool comparing = false)
+    {
+        List<string> forAnalyze = headers
+                .SelectMany(p =>
+                {
+                    if (File.Exists(p))
+                        return new[] { p };
+                    else if (Directory.Exists(p))
+                        return Directory.EnumerateFiles(p, "*", SearchOption.AllDirectories);
+                    else
+                        return Enumerable.Empty<string>();
+                }).ToList();
+
+        if (comparing && forAnalyze.Count > 0 && Result.Count > 0)
+        {
+            forAnalyze.RemoveRange(1, forAnalyze.Count - 1);
+            forAnalyze.Add(Result[0].FileFullPath!);
+            forAnalyze.Reverse();
+            WindowContentService.Set<FilesComparingResult>();
+        }
+        else if (forAnalyze.Count == 1)
+            WindowContentService.Set<SingleAnalysisResult>();
+        else if (forAnalyze.Count > 1)
+            WindowContentService.Set<MultiAnalysisResult>();
+
+        Calculate(forAnalyze);
     }
 }

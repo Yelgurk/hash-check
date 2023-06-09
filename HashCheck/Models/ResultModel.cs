@@ -9,23 +9,19 @@ namespace HashCheck.Models
 {
     public partial class ResultModel : ObservableObject
     {
-        private string _fileName;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FileName))]
+        [NotifyPropertyChangedFor(nameof(FilePath))]
+        private string? fileFullPath;
 
-        public string FileName
-        {
-            get => string.IsNullOrEmpty(_fileName) ? "" : _fileName;
-            set => SetProperty(ref _fileName, value!.Split('\\')[value.Split('\\').Count() - 1]);
-        }
+        public string FileName => string.IsNullOrEmpty(FileFullPath) ? "" : FileFullPath!.Split('\\')[FileFullPath.Split('\\').Count() - 1];
 
-        private string _filePath;
-
-        public string FilePath
-        {
-            get => string.IsNullOrEmpty(_filePath) ? "" : _filePath;
-            set => SetProperty(ref _filePath, value!.Substring(0, value.LastIndexOf('\\')));
-        }
+        public string FilePath => string.IsNullOrEmpty(FileFullPath) ? "" : FileFullPath!.Substring(0, FileFullPath.LastIndexOf('\\'));
 
         [ObservableProperty]
-        private string fileHash;
+        private string? fileHash;
+
+        public static bool operator ==(ResultModel Result1, ResultModel Result2) => Result1.FileHash == Result2.FileHash;
+        public static bool operator !=(ResultModel Result1, ResultModel Result2) => Result1.FileHash != Result2.FileHash;
     }
 }

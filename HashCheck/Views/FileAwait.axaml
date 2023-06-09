@@ -10,9 +10,9 @@
         <vm:FileAwaitVM/>
     </UserControl.DataContext>
 
-    <Border MouseLeftButtonDown="{e:EventBinding ShowMessage, `Happy `, 20m, 20.0 }" Name="df"
-			
-			Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent">
+    <Border Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent"
+			Name="DragDropPlace_Main"
+			DragDrop.AllowDrop="True">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Перетащите файл, либо"/>
 			<Grid>

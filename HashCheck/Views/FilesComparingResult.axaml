@@ -17,29 +17,33 @@
     </Grid.ColumnDefinitions>
 
     <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <TextBlock Text="Имя файла" FontSize="18"/>
-      <TextBlock Text="С:/Windows/zalupen" FontSize="12"/>
-      <TextBlock Text="HASH HASH HASH HASH" FontSize="24"/>
+      <TextBlock Text="{Binding Computator.Result[0].FileName}" FontSize="18"/>
+      <TextBlock Text="{Binding Computator.Result[0].FilePath}" FontSize="12"/>
+      <TextBlock Text="{Binding Computator.Result[0].FileHash}" FontSize="24"/>
     </StackPanel>
 
     <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <TextBlock Text="Имя файла" FontSize="18"/>
-      <TextBlock Text="С:/Windows/zalupen" FontSize="12"/>
-      <TextBlock Text="HASH HASH HASH HASH" FontSize="24"/>
+      <TextBlock Text="{Binding Computator.Result[1].FileName}" FontSize="18"/>
+      <TextBlock Text="{Binding Computator.Result[1].FilePath}" FontSize="12"/>
+      <TextBlock Text="{Binding Computator.Result[1].FileHash}" FontSize="24"/>
     </StackPanel>
 
     <Grid Grid.ColumnSpan="2" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
       <Ellipse Width="50" Height="50" Stroke="Green" StrokeThickness="2"/>
-      <TextBlock  FontSize="40" Text="=" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      <TextBlock  FontSize="16" Text="{Binding Computator.IsHashesEqual}" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 
-    <ComboBox Grid.ColumnSpan="2" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top"
-                  Margin="20">
-      <ComboBoxItem Content="MD5" IsSelected="True"/>
-      <ComboBoxItem Content="1"/>
-      <ComboBoxItem Content="1"/>
-      <ComboBoxItem Content="1"/>
-      <ComboBoxItem Content="1"/>
-    </ComboBox>
+	<DropDown Grid.ColumnSpan="2" Width="80" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Right"
+			  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
+		<DropDown.ItemTemplate>
+			<DataTemplate>
+				<TextBlock Text="{Binding HashName}" FontSize="14" />
+			</DataTemplate>
+		</DropDown.ItemTemplate>
+	</DropDown>
+
+	<Button Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right"
+			Width="60" Height="30" Margin="0 60 25 0" Content="Назад"
+			Command="{Binding DisplayMainPage}"/>
   </Grid>
 </UserControl>

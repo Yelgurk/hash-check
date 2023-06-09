@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Input;
 using EventBinder;
@@ -24,12 +25,8 @@ public partial class FileAwait : UserControl
         this.InitializeComponent();
         this.DataContext = new FileAwaitVM() { View = this, WindowContentService = _windowContentService };
 
-        /*
-        AddHandler(DragDrop.DropEvent, (DataContext as FileAwaitVM)!.DropFileAndDir);
-        AddHandler(DragDrop.DragOverEvent, (DataContext as FileAwaitVM)!.DragOverAccess);
-        */
-
-        EventBinding.Bind(); <--- tf?
+        this.FindControl<Border>("DragDropPlace_Main").AddHandler(DragDrop.DropEvent, (DataContext as FileAwaitVM)!.DropObjectForHash);
+        this.FindControl<Border>("DragDropPlace_Main").AddHandler(DragDrop.DragOverEvent, (DataContext as FileAwaitVM)!.DragOverAccess);
     }
 
     private void InitializeComponent()

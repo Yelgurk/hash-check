@@ -27,7 +27,7 @@ public partial class App : Application
                 services.AddSingleton<FileAwait>();
                 services.AddSingleton<SingleAnalysisResult>();
                 services.AddSingleton<MultiAnalysisResult>();
-                services.AddSingleton<FileAwait>();
+                services.AddSingleton<FilesComparingResult>();
                 services.AddTransient<IWindowContentService, WindowContentService>();
                 services.AddSingleton<HashComputator>();
             })

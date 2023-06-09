@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HashCheck.Views.DragDropPopupControl"
+			 Background="Black"
+			 Opacity="0.66">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		
+		<Border Grid.Column="0" Margin="20" BorderThickness="5"
+				Background="Transparent" BorderBrush="Gray"
+				DragDrop.AllowDrop="True"
+				Name="DragDropPlace_NewSingle"/>
+		
+		<Border Grid.Column="1" Margin="20" BorderThickness="5"
+				Background="Transparent" BorderBrush="Gray"
+				DragDrop.AllowDrop="True"
+				Name="DragDropPlace_NewCompare"/>
+	</Grid>
+</UserControl>
