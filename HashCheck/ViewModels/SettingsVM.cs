@@ -20,7 +20,6 @@ namespace HashCheck.ViewModels
 
         public SettingsVM()
         {
-
             SettingFile = App.Host!.Services.GetRequiredService<SettingFile>()!;
 
             if (!File.Exists(SettingPath))

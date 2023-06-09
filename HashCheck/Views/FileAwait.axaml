@@ -20,12 +20,19 @@
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
 
 				<Button Content="Файл" Command="{Binding PeekFileCommand}"
 						Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 
 				<Button Content="Папка" Command="{Binding PeekFolderCommand}"
 						Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+			
+				<Button Content="Настройки" Command="{Binding GoToSettings}"
+						Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 			</Grid>
         </StackPanel>
     </Border>

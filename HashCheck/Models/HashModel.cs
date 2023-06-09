@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using HashCheck.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,14 +11,25 @@ using System.Threading.Tasks;
 
 namespace HashCheck.Models;
 
-public partial class HashModel : ObservableObject, IHashModel
+public partial class HashModel : ObservableObject
 {
     [ObservableProperty]
     private string hashName;
 
-    [ObservableProperty]
-    private Func<string, string> hashMethod;
+    [JsonIgnore]
+    public Func<string, string> HashMethod { get; init; }
 
-    [ObservableProperty]
-    private bool isSelected = false;
+    private bool _isSelected = false;
+
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            if (SetProperty(ref _isSelected, value))
+                App.Host!.Services.GetRequiredService<SettingFile>()!.SaveSettings(SettingsVM.SettingPath);
+        }
+    }
+
+    public bool LoadSelectState { set => SetProperty(ref _isSelected, value); }
 }

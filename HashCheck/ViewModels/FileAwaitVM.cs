@@ -37,5 +37,8 @@ namespace HashCheck.ViewModels
             if (path is not null && Directory.Exists(path))
                 App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(new[] { path });
         }
+
+        [RelayCommand]
+        void GoToSettings() => WindowContentService.Set<Settings>();
     }
 }

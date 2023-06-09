@@ -16,11 +16,7 @@ public partial class Settings : UserControl
     public Settings()
     {
         this.InitializeComponent();
-        this.DataContext = new SettingsVM()
-        {
-            View = this,
-            WindowContentService = new WindowContentService()
-        };
+        this.DataContext = new SettingsVM() { View = this, WindowContentService = new WindowContentService() };
     }
 
     private void InitializeComponent()
