@@ -4,36 +4,109 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:e="clr-namespace:EventBinder;assembly=EventBinder.Avalonia"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              x:Class="HashCheck.Views.FileAwait">
     <UserControl.DataContext>
         <vm:FileAwaitVM/>
     </UserControl.DataContext>
+	<UserControl.Styles>
+		<Style Selector="Border.main-dragdrop">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="DragDrop.AllowDrop" Value="True"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="BorderBrush" Value="Gray"/>
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Padding" Value="0 5"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="BorderThickness"
+										 Duration="0:0:0:0.33"
+										 Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
 
-    <Border Margin="10" BorderThickness="2" BorderBrush="Gray" Background="Transparent"
-			Name="DragDropPlace_Main"
-			DragDrop.AllowDrop="True">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Перетащите файл, либо"/>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
+		<Style Selector="Button.single-btn /template/ ContentPresenter">
+			<Setter Property="Margin" Value="15 5"/>
+			<Setter Property="Background" Value="WhiteSmoke"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<ThicknessTransition Property="Margin"
+										 Duration="0:0:0:0.33"
+										 Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
 
-				<Button Content="Файл" Command="{Binding PeekFileCommand}"
-						Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+		<Style Selector="Button.single-btn:pointerover /template/ ContentPresenter">
+			<Setter Property="Margin" Value="10 0"/>
+		</Style>
 
-				<Button Content="Папка" Command="{Binding PeekFolderCommand}"
-						Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-			
-				<Button Content="Настройки" Command="{Binding GoToSettings}"
-						Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-			</Grid>
-        </StackPanel>
-    </Border>
+		<Style Selector="Border.btn-img">
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="BorderBrush" Value="Gray"/>
+			<Setter Property="Width" Value="50"/>
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="Margin" Value="2 0 0 0"/>
+		</Style>
+
+		<Style Selector="TextBlock.btn-text">
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="DemiBold"/>
+			<Setter Property="FontSize" Value="14"/>
+		</Style>
+
+		<Style Selector="StackPanel.btn-content">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0:0.33" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.single-btn StackPanel.btn-content">
+			<Setter Property="RenderTransform" Value="scale(1)"/>
+		</Style>
+
+		<Style Selector="Button.single-btn:pointerover StackPanel.btn-content">
+			<Setter Property="RenderTransform" Value="scale(1.1)"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Border Classes="main-dragdrop" Name="DragDropPlace_Main">
+		<Grid Classes="wrapper">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="80"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Button Classes="single-btn" Grid.ColumnSpan="2"
+					Command="{Binding GoToSettings}">
+				<StackPanel Classes="btn-content">
+					<TextBlock Classes="btn-text" Text="Настройки"/>
+				</StackPanel>
+			</Button>
+		
+			<Button Classes="single-btn" Grid.Column="0" Grid.Row="1"
+					Command="{Binding PeekFileCommand}">
+				<StackPanel Classes="btn-content">
+					<Border Classes="btn-img"/>
+					<TextBlock Classes="btn-text" Text="ФАЙЛ"/>
+				</StackPanel>
+			</Button>
+		
+			<Button Classes="single-btn" Grid.Column="1" Grid.Row="1"
+					Command="{Binding PeekFolderCommand}">
+				<StackPanel Classes="btn-content">
+					<Border Classes="btn-img"/>
+					<TextBlock Classes="btn-text" Text="ПАПКА"/>
+				</StackPanel>
+			</Button>
+		</Grid>
+	</Border>
 </UserControl>

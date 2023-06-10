@@ -61,7 +61,7 @@ public class WindowContentService : IWindowContentService
 {
     T IWindowContentService.Set<T>()
     {
-        App.Host!.Services.GetRequiredService<MainWindow>()!.Content = App.Host!.Services.GetRequiredService<T>()!;
+        App.Host!.Services.GetRequiredService<MainWindow>()!.SetContent(App.Host!.Services.GetRequiredService<T>()!);
         return App.Host!.Services.GetRequiredService<T>()!;
     }
 }

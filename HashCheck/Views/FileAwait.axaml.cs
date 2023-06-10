@@ -3,12 +3,15 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EventBinder;
 using HashCheck.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -25,8 +28,19 @@ public partial class FileAwait : UserControl
         this.InitializeComponent();
         this.DataContext = new FileAwaitVM() { View = this, WindowContentService = _windowContentService };
 
-        this.FindControl<Border>("DragDropPlace_Main").AddHandler(DragDrop.DropEvent, (DataContext as FileAwaitVM)!.DropObjectForHash);
-        this.FindControl<Border>("DragDropPlace_Main").AddHandler(DragDrop.DragOverEvent, (DataContext as FileAwaitVM)!.DragOverAccess);
+        Border DDBorder = this.FindControl<Border>("DragDropPlace_Main");
+
+        DDBorder.AddHandler(DragDrop.DropEvent, (o, e) =>
+        {
+            DDBorder.BorderThickness = new Thickness(0);
+            (DataContext as FileAwaitVM)!.DropObjectForHash(o, e);
+        });
+        DDBorder.AddHandler(DragDrop.DragOverEvent, (o, e) =>
+        {
+            DDBorder.BorderThickness = new Thickness(5);
+            (DataContext as FileAwaitVM)!.DragOverAccess(o, e);
+        });
+        DDBorder.AddHandler(DragDrop.DragLeaveEvent, (o, e) => DDBorder.BorderThickness = new Thickness(0));
     }
 
     private void InitializeComponent()

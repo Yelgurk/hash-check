@@ -20,5 +20,7 @@ namespace HashCheck.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        public void SetContent (object Content) => this.Content = Content;
     }
 }

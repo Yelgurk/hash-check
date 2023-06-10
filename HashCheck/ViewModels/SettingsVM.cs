@@ -47,7 +47,10 @@ namespace HashCheck.ViewModels
             SettingFile = App.Host!.Services.GetRequiredService<SettingFile>()!;
 
             if (!File.Exists(SettingPath))
+            {
                 SettingFile.SaveSettings(SettingPath);
+                (new WindowContentService() as IWindowContentService).Set<Settings>();
+            }
             else
                 SettingFile.LoadSettings(SettingPath);
 

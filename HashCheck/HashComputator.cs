@@ -87,12 +87,13 @@ public partial class HashComputator : ObservableObject
     {
         Result.Clear();
         await Task.Run(() =>
-            FilePaths.ForEach(path =>
-                Result.Add(new ResultModel()
-                {
+            FilePaths.ForEach(path => {
+                Result.Add(new ResultModel() {
                     FileFullPath = path,
-                    FileHash = Hashes.Where((hash) => hash.IsSelected).Select<HashModel, string>((selected) => selected.HashMethod(path)).ToList()
-                })));
+                    FileHash = Hashes.Where((hash) => hash.IsSelected).Select<HashModel, string>((selected) => selected.HashMethod(path)).DefaultIfEmpty("hash not selected").ToList()!
+                });
+            })
+        );
 
         OnPropertyChanged(nameof(IsHashesEqual));
     }

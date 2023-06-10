@@ -12,11 +12,13 @@ namespace HashCheck.Views;
 
 public partial class Settings : UserControl
 {
+    public Settings() : this(new WindowContentService())
+    { }
 
-    public Settings()
+    public Settings(IWindowContentService _windowContentService)
     {
         this.InitializeComponent();
-        this.DataContext = new SettingsVM() { View = this, WindowContentService = new WindowContentService() };
+        this.DataContext = new SettingsVM() { View = this, WindowContentService = _windowContentService };
     }
 
     private void InitializeComponent()
