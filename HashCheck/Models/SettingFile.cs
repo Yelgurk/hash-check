@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using HashCheck.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,11 +17,9 @@ namespace HashCheck.Models;
 
 public partial class SettingFile : ObservableObject, IDisposable
 {
-    public enum ProgTheme { Light, Dark, System };
-
     public ObservableCollection<HashModel> Hashes { get; set; }
 
-    public ProgTheme Theme { get; set; }
+    public int Theme { get; set; }
 
     [JsonConstructor]
     public SettingFile() { }
@@ -28,7 +27,7 @@ public partial class SettingFile : ObservableObject, IDisposable
     public SettingFile(HashComputator hashComputator)
     {
         this.Hashes = hashComputator.Hashes;
-        this.Theme = ProgTheme.Light;
+        this.Theme = 0;
     }
 
     public void SaveSettings(string path)
@@ -48,7 +47,7 @@ public partial class SettingFile : ObservableObject, IDisposable
         using (FileStream fs = new FileStream(path, FileMode.Open))
         {
             JsonNode jObj = JsonObject.Parse(fs)!;
-            Theme = JsonSerializer.Deserialize<ProgTheme>(jObj!["Theme"]);
+            Theme = JsonSerializer.Deserialize<int>(jObj!["Theme"]);
 
             if (JsonSerializer.Deserialize<ObservableCollection<HashModel>>(jObj!["Hashes"])!.Count == this.Hashes.Count)
             {

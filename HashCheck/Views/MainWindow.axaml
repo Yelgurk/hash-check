@@ -7,9 +7,10 @@
         xmlns:view="clr-namespace:HashCheck.Views"
         Icon="/Assets/avalonia-logo.ico"
         Title="HashCheck"
-		    Width="400"
-		    Height="250"
+		Width="400"
+		Height="250"
         mc:Ignorable="d">
+	
   <Window.DataContext>
     <vm:MainWindowVM/>
   </Window.DataContext>
