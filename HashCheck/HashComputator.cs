@@ -111,11 +111,16 @@ public partial class HashComputator : ObservableObject
                         return Enumerable.Empty<string>();
                 }).ToList();
 
-        if (comparing && forAnalyze.Count > 0 && Result.Count > 0)
+        if (comparing && Result.Count > 0 && forAnalyze.Count > 0)
         {
             forAnalyze.RemoveRange(1, forAnalyze.Count - 1);
             forAnalyze.Add(Result[0].FileFullPath!);
             forAnalyze.Reverse();
+            WindowContentService.Set<FilesComparingResult>();
+        }
+        else if (comparing && Result.Count == 0 && forAnalyze.Count > 1)
+        {
+            forAnalyze.RemoveRange(2, forAnalyze.Count - 2);
             WindowContentService.Set<FilesComparingResult>();
         }
         else if (forAnalyze.Count == 1)
