@@ -2,18 +2,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
              x:Class="HashCheck.Views.SingleAnalysisResult"
 			 DragDrop.AllowDrop="True"
 			 Background="Transparent">
-
-  <UserControl.DataContext>
-    <vm:SingleAnalysisResultVM/>
-  </UserControl.DataContext>
+	<UserControl.DataContext>
+		<vm:SingleAnalysisResultVM/>
+	</UserControl.DataContext>
+	<UserControl.Styles>
+		
+	</UserControl.Styles>
 
 	<Grid>
+		<ScrollViewer>
+			<ItemsControl Items="{Binding SettingFile.Hashes}"
+						  HorizontalAlignment="Stretch">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border>
+							<DockPanel>
+								<TextBlock Text="{Binding}" FontSize="14" />
+							</DockPanel>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+		
+		<!--
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="150"/>
@@ -60,6 +83,7 @@
 				</ListBox>
 			</StackPanel>
 		</Grid>
+		-->
 
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
 	</Grid>

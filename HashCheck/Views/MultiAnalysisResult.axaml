@@ -2,44 +2,173 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
              x:Class="HashCheck.Views.MultiAnalysisResult"
 			 DragDrop.AllowDrop="True">
-  <UserControl.DataContext>
-    <vm:MultiAnalysisResultVM/>
-  </UserControl.DataContext>
-  
-  <Grid>
-	  <ListBox Items="{Binding Computator.Result}">
-		  <ListBox.ItemTemplate>
-			  <DataTemplate>
-				  <StackPanel>
-					  <TextBlock Text="{Binding FileName}" FontSize="18" />
-					  <TextBlock Text="{Binding FilePath}" FontSize="18" />
-					  <ListBox Items="{Binding FileHash}">
-						  <ListBox.ItemTemplate>
-							  <DataTemplate>
-								  <TextBlock Text="{Binding}"/>
-							  </DataTemplate>
-						  </ListBox.ItemTemplate>
-					  </ListBox>
-				  </StackPanel>
-			  </DataTemplate>
-		  </ListBox.ItemTemplate>
-      </ListBox>
+	<UserControl.DataContext>
+		<vm:MultiAnalysisResultVM/>
+	</UserControl.DataContext>
+	<UserControl.Resources>
+		<StreamGeometry x:Key="note_regular">M17.75,3 C19.5449254,3 21,4.45507456 21,6.25 L21,13.1286797 C21,13.7254168 20.7629471,14.2977131 20.3409903,14.7196699 L14.7196699,20.3409903 C14.2977131,20.7629471 13.7254168,21 13.1286797,21 L6.25,21 C4.45507456,21 3,19.5449254 3,17.75 L3,6.25 C3,4.45507456 4.45507456,3 6.25,3 L17.75,3 Z M17.75,4.5 L6.25,4.5 C5.28350169,4.5 4.5,5.28350169 4.5,6.25 L4.5,17.75 C4.5,18.7164983 5.28350169,19.5 6.25,19.5 L13,19.5 L13,16.25 C13,14.5169685 14.3564548,13.1007541 16.0655761,13.0051448 L16.25,13 L19.5,13 L19.5,6.25 C19.5,5.28350169 18.7164983,4.5 17.75,4.5 Z M18.439,14.5 L16.25,14.5 C15.3318266,14.5 14.5788077,15.2071103 14.5058012,16.1064728 L14.5,16.25 L14.5,18.439 L18.439,14.5 Z</StreamGeometry>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="Path">
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Stroke" Value="Black"/>
+			<Setter Property="Margin" Value="-5 0 5 0"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="RenderTransform" Value="scale(0.8)"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
 
-	  <DropDown Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right"
-				  Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
-		  <DropDown.ItemTemplate>
-			  <DataTemplate>
-				  <TextBlock Text="{Binding HashName}" FontSize="14" />
-			  </DataTemplate>
-		  </DropDown.ItemTemplate>
-	  </DropDown>
+		<Style Selector="ListBox">
+			<Setter Property="Margin" Value="0"/>
+		</Style>
+		
+		<Style Selector="ListBox ListBoxItem">
+			<Setter Property="BorderThickness" Value="5 0 0 0"/>
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Padding" Value="10"/>
+		</Style>
 
-	  <Button VerticalAlignment="Top" HorizontalAlignment="Right"
-			  Width="60" Height="30" Margin="10 50 10 10" Content="Назад"
-			  Command="{Binding	DisplayMainPage}"/>
-  </Grid>
+		<Style Selector="ListBox ListBoxItem:pointerover /template/ ContentPresenter">
+			<Setter Property="BorderBrush" Value="#FFD800"/>
+		</Style>
+
+		<Style Selector="ListBox Button.btn-open">
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Button Tag="{Binding $parent[Button].Tag}">
+							<DockPanel>
+								<TextBlock Text="Открыть: "/>
+								<TextBlock Text="{Binding $parent[Button].Tag}"/>
+							</DockPanel>
+						</Button>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="ListBox Button.btn-open /template/ Button">
+			<Setter Property="Margin" Value="0 5 -10 5"/>
+			<Setter Property="Padding" Value="5 2"/>
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="MaxWidth" Value="{Binding $parent[StackPanel].Bounds.Width}"/>
+			<Setter Property="Background" Value="LightGray"/>
+		</Style>
+
+		<Style Selector="ListBox Button.hash-copy">
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="MaxWidth" Value="{Binding $parent[ItemsControl].Bounds.Width}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<DockPanel>
+							<Button Content="{Binding $parent[Button].Tag}"/>
+							<ContentPresenter Content="{Binding $parent[Button].Content}"/>
+						</DockPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="ListBox Button.hash-copy /template/ Button">
+			<Setter Property="Margin" Value="0 2 5 2"/>
+			<Setter Property="Width" Value="70"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="5"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="Background" Value="LightGray"/>
+		</Style>
+
+		<Style Selector="TextBlock">
+			<Setter Property="FontFamily" Value="Montserrat"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>
+
+		<Style Selector="ListBox Button.btn-open TextBlock">
+			<Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
+		</Style>
+
+		<Style Selector="ListBox Button.hash-copy TextBlock">
+			<Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid>
+		<ListBox Items="{Binding Computator.Result}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<DockPanel>
+							<Path Data="{StaticResource note_regular}"/>
+							<TextBlock Text="{Binding FileName}"/>
+						</DockPanel>
+						<Button Classes="btn-open" Tag="{Binding FilePath}"/>
+						<ItemsControl Items="{Binding FileHash}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Button Classes="hash-copy" Tag="{Binding HashName}">
+										<TextBlock Text="{Binding HashValue}"/>
+									</Button>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
+		<!--
+		<ListBox Items="{Binding Computator.Result}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<TextBlock Text="{Binding FileName}" FontSize="18" />
+						<TextBlock Text="{Binding FilePath}" FontSize="18" />
+						<ListBox Items="{Binding FileHash}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding}"/>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<DropDown Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right"
+					Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
+			<DropDown.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding HashName}" FontSize="14" />
+				</DataTemplate>
+			</DropDown.ItemTemplate>
+		</DropDown>
+
+		<Button VerticalAlignment="Top" HorizontalAlignment="Right"
+				Width="60" Height="30" Margin="10 50 10 10" Content="Назад"
+				Command="{Binding	DisplayMainPage}"/>
+		-->
+	</Grid>
 </UserControl>

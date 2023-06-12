@@ -73,6 +73,17 @@ public partial class HashComputator : ObservableObject
         });
 
         SelectedHash = Hashes[0];
+
+        Result.Add(new ResultModel() { FileFullPath = "test1\\test\\test1\\test\\test1\\test\\test1\\test\\test1.exe", FileHash = new List<HashModel>() {
+            new HashModel() { HashName = "MD5", HashValue = "123ABC" },
+            new HashModel() { HashName = "MD5", HashValue = "456ABC" },
+            new HashModel() { HashName = "MD5", HashValue = "ABC789" }
+        } });
+        Result.Add(new ResultModel() { FileFullPath = "test2\\xxxx\\test2\\xxxx\\test2\\xxxx\\test2\\xxxx\\test2.exe", FileHash = new List<HashModel>() {
+            new HashModel() { HashName = "MD5", HashValue = "123ABC" },
+            new HashModel() { HashName = "MD5", HashValue = "456ABC" },
+            new HashModel() { HashName = "MD5", HashValue = "ABC789" }
+        } });
     }
 
     private string HashToString(byte[] HashCode) { return BitConverter.ToString(HashCode).Replace("-", ""); }
@@ -90,7 +101,11 @@ public partial class HashComputator : ObservableObject
             FilePaths.ForEach(path => {
                 Result.Add(new ResultModel() {
                     FileFullPath = path,
-                    FileHash = Hashes.Where((hash) => hash.IsSelected).Select<HashModel, string>((selected) => selected.HashMethod(path)).DefaultIfEmpty("hash not selected").ToList()!
+                    FileHash = new List<HashModel>(
+                        Hashes.Where((hash) => hash.IsSelected)
+                            .Select<HashModel, HashModel>((calc) => new HashModel() { HashName = calc.HashName, HashValue = calc.HashMethod(path) })
+                                .DefaultIfEmpty(new HashModel() { HashName = "hash not selected", HashValue = "" })
+                                    .ToList())   
                 });
             })
         );

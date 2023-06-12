@@ -17,123 +17,74 @@
 	</UserControl.Resources>
 	<UserControl.Styles>
 		<!--
-		<Style Selector="Label.notify-drop">
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Setter Property="Height" Value="0"/>
-			<Setter Property="RenderTransform" Value="scale(0.0)"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Grid>
-							<ItemsControl Items="{Binding $parent[Label].Content}"
-										  VerticalAlignment="Center">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel Orientation="Horizontal"/>
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding}" Margin="0,0,2,0" FontSize="16"/>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			<Setter Property="Transitions">
-				<Transitions>
-					<TransformOperationsTransition Property="RenderTransform"
-												   Duration="0:0:0.15"
-												   Easing="CircularEaseInOut"/>
-					<DoubleTransition Property="Height"
-									  Duration="0:0:0.5"
-									  Easing="CircularEaseInOut"/>
-				</Transitions>
-			</Setter>
-		</Style>
-		-->
-		
 		<Style Selector="Button">
 			<Setter Property="Background" Value="Green"/>
 			<Setter Property="Margin" Value="5"/>
 			<Setter Property="CornerRadius" Value="0"/>
 		</Style>
+		-->
 
+		<Style Selector="Button.single-btn">
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border Background="LightGray"
+								ClipToBounds="True">
+							<Grid>
+								<TextBlock Text="{Binding $parent[Button].Tag}"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   FontFamily="Montserrat"
+										   FontSize="16"/>
+
+								<ContentPresenter Content="{Binding $parent[Button].Content}"
+												  Background="#FFD800"
+												  HorizontalAlignment="Left"
+												  VerticalAlignment="Top"/>
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		
 		<Style Selector="Button.single-btn Path">
 			<Setter Property="StrokeThickness" Value="1"/>
 			<Setter Property="Stroke" Value="Black"/>
-		</Style>
-		
-		<!--
-		<Style Selector="Border.main-dragdrop">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="DragDrop.AllowDrop" Value="True"/>
-			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="BorderBrush" Value="Gray"/>
-			<Setter Property="Margin" Value="0"/>
-			<Setter Property="Padding" Value="0 5"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="RenderTransform" Value="scale(0.8)"/>
 			<Setter Property="Transitions">
 				<Transitions>
-					<ThicknessTransition Property="BorderThickness"
-										 Duration="0:0:0:0.33"
-										 Easing="CircularEaseInOut"/>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
 				</Transitions>
 			</Setter>
 		</Style>
 
-		<Style Selector="Button.single-btn /template/ ContentPresenter">
-			<Setter Property="Margin" Value="15 5"/>
-			<Setter Property="Background" Value="WhiteSmoke"/>
-			<Setter Property="Transitions">
-				<Transitions>
-					<ThicknessTransition Property="Margin"
-										 Duration="0:0:0:0.33"
-										 Easing="CircularEaseInOut"/>
-				</Transitions>
-			</Setter>
-		</Style>
-
-		<Style Selector="Button.single-btn:pointerover /template/ ContentPresenter">
-			<Setter Property="Margin" Value="10 0"/>
-		</Style>
-
-		<Style Selector="Border.btn-img">
-			<Setter Property="BorderThickness" Value="2"/>
-			<Setter Property="BorderBrush" Value="Gray"/>
+		<Style Selector="Button.single-btn /template/ Grid ContentPresenter">
 			<Setter Property="Width" Value="50"/>
 			<Setter Property="Height" Value="50"/>
-			<Setter Property="Margin" Value="2 0 0 0"/>
-		</Style>
-
-		<Style Selector="TextBlock.btn-text">
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Setter Property="FontWeight" Value="DemiBold"/>
-			<Setter Property="FontSize" Value="14"/>
-		</Style>
-
-		<Style Selector="StackPanel.btn-content">
-			<Setter Property="VerticalAlignment" Value="Center"/>
 			<Setter Property="Transitions">
 				<Transitions>
-					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0:0.33" Easing="CircularEaseInOut"/>
+					<DoubleTransition Property="Width" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
 				</Transitions>
 			</Setter>
 		</Style>
-
-		<Style Selector="Button.single-btn StackPanel.btn-content">
-			<Setter Property="RenderTransform" Value="scale(1)"/>
+		
+		<Style Selector="Button.single-btn:pointerover /template/ Grid ContentPresenter">
+			<Setter Property="Width" Value="{Binding $parent[Button].Bounds.Width}"/>
+			<Setter Property="Height" Value="{Binding $parent[Button].Bounds.Height}"/>
 		</Style>
 
-		<Style Selector="Button.single-btn:pointerover StackPanel.btn-content">
-			<Setter Property="RenderTransform" Value="scale(1.1)"/>
+		<Style Selector="Button.single-btn:pointerover Path">
+			<Setter Property="RenderTransform" Value="scale(1.8)"/>
 		</Style>
-		-->
 	</UserControl.Styles>
 
-	<Grid DragDrop.AllowDrop="True" Margin="5">
-		<Grid Classes="wrapper" ColumnDefinitions="1*, 1*">
+	<Grid DragDrop.AllowDrop="True" Background="Transparent">
+		<Grid Classes="wrapper" ColumnDefinitions="1*, 1*" Margin="5">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="60"/>
 				<RowDefinition/>
@@ -141,25 +92,51 @@
 
 			<Button Classes="single-btn" Grid.ColumnSpan="2"
 					Command="{Binding GoToSettings}" Tag="НАСТРОЙКИ">
-				<Grid>
 					<Path Data="{StaticResource settings_regular}"/>
-				</Grid>
 			</Button>
 		
 			<Button Classes="single-btn" Grid.Column="0" Grid.Row="2"
 					Command="{Binding PeekFileCommand}" Tag="ФАЙЛ">
-				<Grid>
 					<Path Data="{StaticResource note_regular}"/>
-				</Grid>
 			</Button>
 		
 			<Button Classes="single-btn" Grid.Column="1" Grid.Row="2"
 					Command="{Binding PeekFolderCommand}" Tag="ПАПКА">
-				<Grid>
 					<Path Data="{StaticResource folder_open_regular}"/>
-				</Grid>
 			</Button>
 		</Grid>
+
+
+		<!--
+		<DockPanel>
+			<Slider Name="slider"
+					IsVisible="False"
+					DockPanel.Dock="Bottom"/>
+			<Viewbox Stretch="Uniform">
+				<Path Name="path"
+					  StrokeThickness="0.05"
+					  Width="20"
+					  Height="20">
+					<Path.Fill>
+						<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%" Opacity="0.2">
+							<LinearGradientBrush.GradientStops>
+								<GradientStop Offset="0.0" Color="#FF72BD81" />
+								<GradientStop Offset="1.0" Color="#0072BD81" />
+							</LinearGradientBrush.GradientStops>
+						</LinearGradientBrush>
+					</Path.Fill>
+					<Path.Stroke>
+						<LinearGradientBrush StartPoint="0%,50%" EndPoint="100%,50%">
+							<LinearGradientBrush.GradientStops>
+								<GradientStop Offset="0.0" Color="#72BD81" />
+								<GradientStop Offset="1.0" Color="#72BD81" />
+							</LinearGradientBrush.GradientStops>
+						</LinearGradientBrush>
+					</Path.Stroke>
+				</Path>
+			</Viewbox>
+		</DockPanel>
+		-->
 
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
 	</Grid>

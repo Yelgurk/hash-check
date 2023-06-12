@@ -2,18 +2,116 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              x:Class="HashCheck.Views.Settings">
+	<UserControl.Resources>
+		<StreamGeometry x:Key="text_change_accept_regular">M17.5 12C20.5376 12 23 14.4624 23 17.5C23 20.5376 20.5376 23 17.5 23C14.4624 23 12 20.5376 12 17.5C12 14.4624 14.4624 12 17.5 12ZM20.1465 15.1464L16.0541 19.2388L14.9 17.7C14.7343 17.4791 14.4209 17.4343 14.2 17.6C13.9791 17.7657 13.9343 18.0791 14.1 18.3L15.6 20.3C15.7826 20.5434 16.1384 20.5687 16.3536 20.3535L20.8536 15.8535C21.0488 15.6583 21.0488 15.3417 20.8536 15.1464C20.6583 14.9512 20.3417 14.9512 20.1465 15.1464Z M11.0189 17H2.75L2.64823 17.0068C2.28215 17.0565 2 17.3703 2 17.75C2 18.1642 2.33579 18.5 2.75 18.5H11.0764C11.0261 18.174 11 17.8401 11 17.5C11 17.3318 11.0064 17.165 11.0189 17Z M11.7322 14.5H2.75C2.33579 14.5 2 14.1642 2 13.75C2 13.3703 2.28215 13.0565 2.64823 13.0068L2.75 13H12.8096C12.3832 13.4443 12.0194 13.949 11.7322 14.5Z M21.25 9H2.75L2.64823 9.00685C2.28215 9.05651 2 9.3703 2 9.75C2 10.1642 2.33579 10.5 2.75 10.5H21.25L21.3518 10.4932C21.7178 10.4435 22 10.1297 22 9.75C22 9.33579 21.6642 9 21.25 9Z M21.25 5H2.75L2.64823 5.00685C2.28215 5.05651 2 5.3703 2 5.75C2 6.16421 2.33579 6.5 2.75 6.5H21.25L21.3518 6.49315C21.7178 6.44349 22 6.1297 22 5.75C22 5.33579 21.6642 5 21.25 5Z</StreamGeometry>
+		<StreamGeometry x:Key="arrow_curve_left_regular">M8 6.75C8 6.33579 8.33578 6 8.75 6H15.75C18.0865 6 20.0117 6.78107 21.25 8.01578C22.4814 9.2436 23 10.8763 23 12.5C23 14.1237 22.4814 15.7564 21.25 16.9842C20.0117 18.2189 18.0865 19 15.75 19H7.56066L10.7803 22.2197C11.0732 22.5126 11.0732 22.9874 10.7803 23.2803C10.4874 23.5732 10.0126 23.5732 9.71967 23.2803L5.21967 18.7803C5.07902 18.6397 5 18.4489 5 18.25C5 18.0511 5.07902 17.8603 5.21967 17.7197L9.71967 13.2197C10.0126 12.9268 10.4874 12.9268 10.7803 13.2197C11.0732 13.5126 11.0732 13.9874 10.7803 14.2803L7.56066 17.5H15.75C17.7385 17.5 19.1758 16.8436 20.1 15.922C21.0311 14.9936 21.5 13.7513 21.5 12.5C21.5 11.2487 21.0311 10.0064 20.1 9.07797C19.1758 8.15643 17.7385 7.5 15.75 7.5H8.75C8.33578 7.5 8 7.16421 8 6.75Z</StreamGeometry>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="Grid ItemsControl Border">
+			<Setter Property="Background" Value="LightGray"/>
+			<Setter Property="Margin" Value="5"/>
+		</Style>
+
+		<Style Selector="Grid ItemsControl TextBlock">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="FontFamily" Value="Montserrat"/>
+			<Setter Property="Margin" Value="0 5 5 5"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+
+		<Style Selector="Grid ItemsControl CheckBox">
+			<Setter Property="Margin" Value="5 5 0 5"/>
+		</Style>
+
+		<Style Selector="Button.btn-back">
+			<Setter Property="Margin" Value="0 10 10 10"/>
+			<Setter Property="Height" Value="37"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border Background="LightGray"
+								ClipToBounds="True">
+							<Grid>
+								<TextBlock Text="{Binding $parent[Button].Tag}"
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   FontFamily="Montserrat"
+										   FontSize="16"/>
+
+								<ContentPresenter Content="{Binding $parent[Button].Content}"
+												  Background="#FFD800"
+												  HorizontalAlignment="Left"
+												  VerticalAlignment="Top"/>
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn-back Path">
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Stroke" Value="Black"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="RenderTransform" Value="scale(0.8)"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn-back /template/ Grid ContentPresenter">
+			<Setter Property="Width" Value="37"/>
+			<Setter Property="Height" Value="37"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="Width" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.5" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn-back:pointerover /template/ Grid ContentPresenter">
+			<Setter Property="Width" Value="{Binding $parent[Button].Bounds.Width}"/>
+			<Setter Property="Height" Value="{Binding $parent[Button].Bounds.Height}"/>
+		</Style>
+
+		<Style Selector="Button.btn-back:pointerover Path">
+			<Setter Property="RenderTransform" Value="scale(1.4)"/>
+		</Style>
+	</UserControl.Styles>
 	
-	<DropDown Grid.Column="2" Grid.Row="0" Width="150" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"
-		      Items="{Binding SettingFile.Hashes}">
-		<DropDown.ItemTemplate>
-			<DataTemplate>
-				<DockPanel>
-					<TextBlock Text="{Binding HashName}" FontSize="14" />
-					<CheckBox IsChecked="{Binding IsSelected}"/>
-				</DockPanel>
-			</DataTemplate>
-		</DropDown.ItemTemplate>
-	</DropDown>
+	<Grid ColumnDefinitions="Auto, 1*" RowDefinitions="Auto, 1*">
+		<ItemsControl Items="{Binding SettingFile.Hashes}"
+					  VerticalAlignment="Center"
+					  HorizontalAlignment="Center"
+					  Grid.RowSpan="2">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Border>
+						<DockPanel>
+							<CheckBox IsChecked="{Binding IsSelected}"/>
+							<TextBlock Text="{Binding HashName}" FontSize="14" />
+						</DockPanel>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+
+		<Button Classes="btn-back" Grid.Column="1" Tag="НАЗАД"
+				Command="{Binding DisplayMainPage}">
+			<Path Data="{StaticResource arrow_curve_left_regular}"/>
+		</Button>
+		
+		<TextBlock Grid.Column="1" Grid.Row="1" Text="тут настрйока тем"/>
+	</Grid>
 </UserControl>

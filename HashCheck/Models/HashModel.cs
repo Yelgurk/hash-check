@@ -16,6 +16,9 @@ public partial class HashModel : ObservableObject
     [ObservableProperty]
     private string hashName;
 
+    [ObservableProperty]
+    private string hashValue;
+
     [JsonIgnore]
     public Func<string, string> HashMethod { get; init; }
 
