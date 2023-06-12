@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HashCheck.Models;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,6 +75,7 @@ public partial class HashComputator : ObservableObject
 
         SelectedHash = Hashes[0];
 
+        /*
         Result.Add(new ResultModel() { FileFullPath = "test1\\test\\test1\\test\\test1\\test\\test1\\test\\test1.exe", FileHash = new List<HashModel>() {
             new HashModel() { HashName = "MD5", HashValue = "123ABC" },
             new HashModel() { HashName = "MD5", HashValue = "456ABC" },
@@ -84,6 +86,7 @@ public partial class HashComputator : ObservableObject
             new HashModel() { HashName = "MD5", HashValue = "456ABC" },
             new HashModel() { HashName = "MD5", HashValue = "ABC789" }
         } });
+        */
     }
 
     private string HashToString(byte[] HashCode) { return BitConverter.ToString(HashCode).Replace("-", ""); }

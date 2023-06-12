@@ -36,7 +36,6 @@
 			</ItemsControl>
 		</ScrollViewer>
 		
-		<!--
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="150"/>
@@ -77,13 +76,12 @@
 						 VerticalAlignment="Center" HorizontalAlignment="Center">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}"/>
+							<TextBlock Text="{Binding HashValue}"/>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
 			</StackPanel>
 		</Grid>
-		-->
 
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
 	</Grid>

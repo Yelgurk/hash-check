@@ -47,7 +47,9 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate>
-						<Button Tag="{Binding $parent[Button].Tag}">
+						<Button Tag="{Binding $parent[Button].Tag}"
+								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFile}"
+								CommandParameter="{Binding $parent[Button].Content}">
 							<DockPanel>
 								<TextBlock Text="Открыть: "/>
 								<TextBlock Text="{Binding $parent[Button].Tag}"/>
@@ -75,8 +77,10 @@
 				<Setter.Value>
 					<ControlTemplate>
 						<DockPanel>
-							<Button Content="{Binding $parent[Button].Tag}"/>
-							<ContentPresenter Content="{Binding $parent[Button].Content}"/>
+							<Button Content="{Binding $parent[Button].Content}"
+									Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboard}"
+									CommandParameter="{Binding $parent[Button].Tag}"/>
+							<ContentPresenter Content="{Binding $parent[Button].Tag}"/>
 						</DockPanel>
 					</ControlTemplate>
 				</Setter.Value>
@@ -85,7 +89,7 @@
 
 		<Style Selector="ListBox Button.hash-copy /template/ Button">
 			<Setter Property="Margin" Value="0 2 5 2"/>
-			<Setter Property="Width" Value="70"/>
+			<Setter Property="Width" Value="80"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="Padding" Value="5"/>
 			<Setter Property="Foreground" Value="Black"/>
@@ -107,6 +111,21 @@
 		<Style Selector="ListBox Button.hash-copy TextBlock">
 			<Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
 		</Style>
+
+		<Style Selector="Button.btn-back">
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="Padding" Value="5 2"/>
+			<Setter Property="Margin" Value="10 6 24 10"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="Background" Value="LightGray"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>
+
+		<Style Selector="Button">
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="TextBlock.FontFamily" Value="Montserrat"/>
+		</Style>
 	</UserControl.Styles>
 
 	<Grid>
@@ -118,7 +137,8 @@
 							<Path Data="{StaticResource note_regular}"/>
 							<TextBlock Text="{Binding FileName}"/>
 						</DockPanel>
-						<Button Classes="btn-open" Tag="{Binding FilePath}"/>
+						<Button Classes="btn-open" Tag="{Binding FilePath}"
+								Content="{Binding}"/>
 						<ItemsControl Items="{Binding FileHash}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
@@ -127,8 +147,8 @@
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Button Classes="hash-copy" Tag="{Binding HashName}">
-										<TextBlock Text="{Binding HashValue}"/>
+									<Button Classes="hash-copy" Tag="{Binding HashValue}">
+										<TextBlock Text="{Binding HashName}"/>
 									</Button>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
@@ -138,37 +158,6 @@
 			</ListBox.ItemTemplate>
 		</ListBox>
 		
-		<!--
-		<ListBox Items="{Binding Computator.Result}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel>
-						<TextBlock Text="{Binding FileName}" FontSize="18" />
-						<TextBlock Text="{Binding FilePath}" FontSize="18" />
-						<ListBox Items="{Binding FileHash}">
-							<ListBox.ItemTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding}"/>
-								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-
-		<DropDown Grid.Column="2" Grid.Row="0" Width="60" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right"
-					Items="{Binding Computator.Hashes}" SelectedItem="{Binding Computator.SelectedHash}">
-			<DropDown.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding HashName}" FontSize="14" />
-				</DataTemplate>
-			</DropDown.ItemTemplate>
-		</DropDown>
-
-		<Button VerticalAlignment="Top" HorizontalAlignment="Right"
-				Width="60" Height="30" Margin="10 50 10 10" Content="Назад"
-				Command="{Binding	DisplayMainPage}"/>
-		-->
+		<Button Classes="btn-back" Content="Назад" Command="{Binding DisplayMainPage}"/>
 	</Grid>
 </UserControl>

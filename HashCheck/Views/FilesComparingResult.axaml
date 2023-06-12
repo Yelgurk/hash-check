@@ -27,7 +27,7 @@
 						 VerticalAlignment="Center" HorizontalAlignment="Center">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}"/>
+							<TextBlock Text="{Binding HashValue}"/>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
@@ -40,7 +40,7 @@
 						 VerticalAlignment="Center" HorizontalAlignment="Center">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}"/>
+							<TextBlock Text="{Binding HashValue}"/>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
