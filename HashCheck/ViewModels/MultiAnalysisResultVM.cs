@@ -20,7 +20,7 @@ public partial class MultiAnalysisResultVM : VMBase
     public MultiAnalysisResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
 
     [RelayCommand]
-    async Task OpenFolderSelectFile(ResultModel file) => App.OpenFolderAndSelectItem(file.FilePath, file.FileName);
+    async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
 
     [RelayCommand]
     async Task CopyHashToClipboard(string hash) => await Application.Current!.Clipboard!.SetTextAsync(hash);
