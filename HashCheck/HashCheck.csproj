@@ -8,6 +8,25 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
+		<PackageReference Include="Microsoft.Composition" Version="1.0.31" />
+		<PackageReference Include="Prism.Core" Version="8.1.97" />
+		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
+		<Protobuf Include="InterProcAPI\HSService.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.23.2" />
+		<PackageReference Include="Google.Protobuf.Tools" Version="3.14.0" />
+		<PackageReference Include="Grpc.Core" Version="2.35.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.54.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "HashCheck";
+
+package HashCheck;
+
+service HashCheckLocalhost {
+	rpc GetLocalObjectHash (HashCheckRequest) returns (google.protobuf.Empty) {}
+}
+
+message HashCheckRequest {
+	string objectURI = 1;
+}

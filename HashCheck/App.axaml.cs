@@ -3,16 +3,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using HashCheck.ViewModels;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Avalonia.Controls;
-using Avalonia.Input;
 using HashCheck.Models;
-using System.Runtime.InteropServices;
 using System;
-using System.IO;
 using System.Threading;
 using System.Diagnostics;
 
@@ -53,7 +48,7 @@ public partial class App : Application
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
         }
 
-        base.OnFrameworkInitializationCompleted();
+        base.OnFrameworkInitializationCompleted();    
     }
 }
 

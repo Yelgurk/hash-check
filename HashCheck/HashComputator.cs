@@ -107,8 +107,8 @@ public partial class HashComputator : ObservableObject
                     FileHash = new List<HashModel>(
                         Hashes.Where((hash) => hash.IsSelected)
                             .Select<HashModel, HashModel>((calc) => new HashModel() { HashName = calc.HashName, HashValue = calc.HashMethod(path) })
-                                .DefaultIfEmpty(new HashModel() { HashName = "hash not selected", HashValue = "" })
-                                    .ToList())   
+                                .DefaultIfEmpty(new HashModel() { HashName = "none", HashValue = "hash not selected" })
+                                    .ToList())
                 });
             })
         );
