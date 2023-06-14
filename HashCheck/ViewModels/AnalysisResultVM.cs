@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace HashCheck.ViewModels;
 
-public partial class MultiAnalysisResultVM : VMBase
+public partial class AnalysisResultVM : VMBase
 {
     public HashComputator Computator { get; init; }
 
-    public MultiAnalysisResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
+    public AnalysisResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
 
     [RelayCommand]
     async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);

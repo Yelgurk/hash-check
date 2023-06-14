@@ -20,17 +20,6 @@ public partial class HashComputator : ObservableObject
 {
     IWindowContentService WindowContentService;
 
-    private HashModel? _selectedHash;
-    public HashModel SelectedHash
-    {
-        get => _selectedHash ?? new HashModel() { HashName = "init", HashMethod = (none) => { return ""; } };
-        set
-        {
-            SetProperty(ref _selectedHash, value);
-            Calculate().ContinueWith(awaiter => { });
-        }
-    }
-
     public ObservableCollection<HashModel> Hashes { get; } = new ObservableCollection<HashModel>();
 
     public List<string> FilePaths { get; set; } = new List<string>();
@@ -71,22 +60,7 @@ public partial class HashComputator : ObservableObject
         {
             HashName = "SHA512",
             HashMethod = (filePath) => { using (FileStream fs = new FileStream(filePath, FileMode.Open)) return HashToString(SHA512.Create().ComputeHash(fs)); }
-        });
-
-        SelectedHash = Hashes[0];
-
-        /*
-        Result.Add(new ResultModel() { FileFullPath = "test1\\test\\test1\\test\\test1\\test\\test1\\test\\test1.exe", FileHash = new List<HashModel>() {
-            new HashModel() { HashName = "MD5", HashValue = "123ABC" },
-            new HashModel() { HashName = "MD5", HashValue = "456ABC" },
-            new HashModel() { HashName = "MD5", HashValue = "ABC789" }
-        } });
-        Result.Add(new ResultModel() { FileFullPath = "test2\\xxxx\\test2\\xxxx\\test2\\xxxx\\test2\\xxxx\\test2.exe", FileHash = new List<HashModel>() {
-            new HashModel() { HashName = "MD5", HashValue = "123ABC" },
-            new HashModel() { HashName = "MD5", HashValue = "456ABC" },
-            new HashModel() { HashName = "MD5", HashValue = "ABC789" }
-        } });
-        */
+        });      
     }
 
     private string HashToString(byte[] HashCode) { return BitConverter.ToString(HashCode).Replace("-", ""); }
@@ -129,22 +103,20 @@ public partial class HashComputator : ObservableObject
                         return Enumerable.Empty<string>();
                 }).ToList();
 
-        if (comparing && Result.Count > 0 && forAnalyze.Count > 0)
+        if (comparing && forAnalyze.Count > 1)
+        {
+            forAnalyze.RemoveRange(2, forAnalyze.Count - 2);
+            WindowContentService.Set<FilesComparingResult>();
+        }
+        else if (comparing && Result.Count > 0 && forAnalyze.Count > 0)
         {
             forAnalyze.RemoveRange(1, forAnalyze.Count - 1);
             forAnalyze.Add(Result[0].FileFullPath!);
             forAnalyze.Reverse();
             WindowContentService.Set<FilesComparingResult>();
         }
-        else if (comparing && Result.Count == 0 && forAnalyze.Count > 1)
-        {
-            forAnalyze.RemoveRange(2, forAnalyze.Count - 2);
-            WindowContentService.Set<FilesComparingResult>();
-        }
-        else if (forAnalyze.Count == 1)
-            WindowContentService.Set<SingleAnalysisResult>();
-        else if (forAnalyze.Count > 1)
-            WindowContentService.Set<MultiAnalysisResult>();
+        else if (forAnalyze.Count > 0)
+            WindowContentService.Set<AnalysisResult>();
 
         Calculate(forAnalyze);
     }

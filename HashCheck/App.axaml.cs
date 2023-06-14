@@ -10,6 +10,7 @@ using HashCheck.Models;
 using System;
 using System.Threading;
 using System.Diagnostics;
+using System.Linq;
 
 namespace HashCheck;
 
@@ -26,8 +27,7 @@ public partial class App : Application
             {
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<FileAwait>();
-                services.AddSingleton<SingleAnalysisResult>();
-                services.AddSingleton<MultiAnalysisResult>();
+                services.AddSingleton<AnalysisResult>();
                 services.AddSingleton<FilesComparingResult>();
                 services.AddTransient<IWindowContentService, WindowContentService>();
                 services.AddSingleton<HashComputator>();
@@ -46,6 +46,12 @@ public partial class App : Application
         {
             ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
+            
+            if (desktop.Args.Contains(Program.ServerArg))
+                desktop!.Exit += (sender, args) => Program.IPAPI_server.ShutdownAsync();
+
+            if (desktop.Args[0] != Program.ServerArg)
+                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(desktop.Args.Take(desktop.Args.Length - 1).ToArray());
         }
 
         base.OnFrameworkInitializationCompleted();    

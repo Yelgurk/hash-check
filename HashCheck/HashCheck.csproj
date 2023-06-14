@@ -12,7 +12,6 @@
 		<PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
 		<PackageReference Include="Microsoft.Composition" Version="1.0.31" />
-		<PackageReference Include="Prism.Core" Version="8.1.97" />
 		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
 		<Protobuf Include="InterProcAPI\HSService.proto" />
 	</ItemGroup>
@@ -54,5 +53,11 @@
 
   <ItemGroup>
     <Compile Remove="Views\AnalysisFinish.axaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\AnalysisResult.axaml.cs">
+      <DependentUpon>AnalysisResult.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

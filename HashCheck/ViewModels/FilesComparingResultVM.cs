@@ -1,4 +1,7 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
+using HashCheck.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace HashCheck.ViewModels
 {
-    public class FilesComparingResultVM : VMBase
+    public partial class FilesComparingResultVM : VMBase
     {
         public HashComputator Computator { get; init; }
 
         public FilesComparingResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
+
+        [RelayCommand]
+        async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
+
+        [RelayCommand]
+        async Task CopyHashToClipboard(string hash) => await Application.Current!.Clipboard!.SetTextAsync(hash);
     }
 }

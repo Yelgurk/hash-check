@@ -1,27 +1,17 @@
 ﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using HashCheck.Views;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Diagnostics;
 using System.Threading;
-using Grpc;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using System.Net.Http;
-using Microsoft.Extensions.Hosting;
-using HashCheck.InterProcAPI.Server;
-using HashCheck.InterProcAPI.Client;
+using Grpc.Core;
+using HashCheck.InterProcAPI;
+using System.Linq;
 
 namespace HashCheck
 {
     internal class Program
     {
+        public static readonly string ServerArg = "[server]";
         private static Mutex _mutex = null;
-        private static StreamServiceServer IPAPI_server;
-        private static StreamServiceClient IPAPI_client;
+        public static InterProcServer IPAPI_server;
 
         [STAThread]
         public static void Main(string[] args)
@@ -32,17 +22,14 @@ namespace HashCheck
 
             if (!CreatedAppInstatnce)
             {
-                IPAPI_client = new StreamServiceClient();
-                IPAPI_client.WriteCommand.Execute("");
-                //IPAPI_client.WriteCommand.Execute(args[0]);
-
-                Environment.FailFast("already runned");
+                if (args.Length > 0)
+                    new InterProcClient(args);
+                Environment.Exit(0);
             }
             else
             {
-                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-                IPAPI_server = new StreamServiceServer();
-                IPAPI_server.SubscribeLogger();
+                IPAPI_server = new InterProcServer();
+                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args.Length == 0 ? new string[] { ServerArg } : args.Append(ServerArg).ToArray());
             }
         }
 

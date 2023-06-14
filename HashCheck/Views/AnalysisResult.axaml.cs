@@ -1,20 +1,21 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+
 using HashCheck.ViewModels;
-using System.Text.Json;
 
 namespace HashCheck.Views
 {
-    public partial class SingleAnalysisResult : UserControl
+    public partial class AnalysisResult : UserControl
     {
-        public SingleAnalysisResult() : this(new WindowContentService())
+        public AnalysisResult() : this(new WindowContentService())
         { }
 
-        public SingleAnalysisResult(IWindowContentService _windowContentService)
+        public AnalysisResult(IWindowContentService _windowContentService)
         {
             this.InitializeComponent();
-            this.DataContext = new SingleAnalysisResultVM() { View = this, WindowContentService = _windowContentService };
+            this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = _windowContentService };
+
 
             this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
         }

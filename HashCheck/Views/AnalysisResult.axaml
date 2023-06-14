@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
-             x:Class="HashCheck.Views.MultiAnalysisResult"
+			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
+             x:Class="HashCheck.Views.AnalysisResult"
 			 DragDrop.AllowDrop="True">
 	<UserControl.DataContext>
-		<vm:MultiAnalysisResultVM/>
+		<vm:AnalysisResultVM/>
 	</UserControl.DataContext>
 	<UserControl.Resources>
 		<StreamGeometry x:Key="note_regular">M17.75,3 C19.5449254,3 21,4.45507456 21,6.25 L21,13.1286797 C21,13.7254168 20.7629471,14.2977131 20.3409903,14.7196699 L14.7196699,20.3409903 C14.2977131,20.7629471 13.7254168,21 13.1286797,21 L6.25,21 C4.45507456,21 3,19.5449254 3,17.75 L3,6.25 C3,4.45507456 4.45507456,3 6.25,3 L17.75,3 Z M17.75,4.5 L6.25,4.5 C5.28350169,4.5 4.5,5.28350169 4.5,6.25 L4.5,17.75 C4.5,18.7164983 5.28350169,19.5 6.25,19.5 L13,19.5 L13,16.25 C13,14.5169685 14.3564548,13.1007541 16.0655761,13.0051448 L16.25,13 L19.5,13 L19.5,6.25 C19.5,5.28350169 18.7164983,4.5 17.75,4.5 Z M18.439,14.5 L16.25,14.5 C15.3318266,14.5 14.5788077,15.2071103 14.5058012,16.1064728 L14.5,16.25 L14.5,18.439 L18.439,14.5 Z</StreamGeometry>
@@ -128,7 +129,7 @@
 		</Style>
 	</UserControl.Styles>
 
-	<Grid>
+	<Grid DragDrop.AllowDrop="True" Background="Transparent">
 		<ListBox Items="{Binding Computator.Result}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
@@ -159,5 +160,8 @@
 		</ListBox>
 		
 		<Button Classes="btn-back" Content="Назад" Command="{Binding DisplayMainPage}"/>
+
+		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer"
+								IsVisible="False"/>
 	</Grid>
 </UserControl>

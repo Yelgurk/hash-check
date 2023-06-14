@@ -7,9 +7,9 @@ option csharp_namespace = "HashCheck";
 package HashCheck;
 
 service HashCheckLocalhost {
-	rpc GetLocalObjectHash (HashCheckRequest) returns (google.protobuf.Empty) {}
+	rpc LocalObjectHashCalc (HashCheckRequest) returns (google.protobuf.Empty) {}
 }
 
 message HashCheckRequest {
-	string objectURI = 1;
+	repeated string objectURI = 1;
 }
