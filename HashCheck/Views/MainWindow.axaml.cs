@@ -17,13 +17,8 @@ namespace HashCheck.Views
 
         public MainWindow(IWindowContentService _windowContentService)
         {
-            this.InitializeComponent();
+            InitializeComponent(true);
             this.DataContext = new MainWindowVM() { View = this, WindowContentService = _windowContentService };
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
 
         public void SetContent (object Content) => this.Content = Content;

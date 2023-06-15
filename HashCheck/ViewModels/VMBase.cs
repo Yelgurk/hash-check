@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HashCheck.Views;
@@ -16,7 +17,7 @@ namespace HashCheck.ViewModels
 
         public void DisplayMainPage() => WindowContentService.Set<FileAwait>();
 
-        public async Task DragOverAccess(object sender, DragEventArgs e)
+        public void DragOverAccess(object sender, DragEventArgs e)
         {
             e.DragEffects = e.DragEffects & DragDropEffects.Link;
             if (!e.Data.Contains(DataFormats.FileNames))
@@ -38,9 +39,9 @@ namespace HashCheck.ViewModels
 
     public static class ContentControlExtensions
     {
-        public static Window? ParentWindow(this IControl control)
+        public static Window? ParentWindow(this Control control)
         {
-            IControl? parentControl = control;
+            StyledElement? parentControl = control;
 
             while(parentControl is not Window and not null)
                 parentControl = parentControl.Parent;

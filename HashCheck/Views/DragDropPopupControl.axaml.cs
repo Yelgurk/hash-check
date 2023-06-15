@@ -10,49 +10,41 @@ namespace HashCheck.Views
     {
         public DragDropPopupControl()
         {
-            this.InitializeComponent();
+            InitializeComponent(true);
             this.DataContext = new DragDropPopupControlVM() { View = this, WindowContentService = new WindowContentService() };
 
             this.AddHandler(DragDrop.DragLeaveEvent, (o, e) => { this.IsVisible = false; });
             this.AddHandler(DragDrop.DropEvent, (o, e) => { this.IsVisible = false; });
 
-            Border DDSingle = this.FindControl<Border>("DragDropPlace_NewSingle");
-            Border DDCompare = this.FindControl<Border>("DragDropPlace_NewCompare");
-
-            DDSingle.AddHandler(DragDrop.DragOverEvent, (o, e) => {
-                DDSingle.Child.Classes.Add("dragover");
+            DragDropPlace_NewSingle.AddHandler(DragDrop.DragOverEvent, (o, e) => {
+                DragDropPlace_NewSingle.Child!.Classes.Add("dragover");
                 (DataContext as DragDropPopupControlVM)!.DragOverAccess(o, e);
             });
 
-            DDSingle.AddHandler(DragDrop.DropEvent, (o, e) => {
+            DragDropPlace_NewSingle.AddHandler(DragDrop.DropEvent, (o, e) => {
                 this.IsVisible = false;
-                DDSingle.Child.Classes.Remove("dragover");
-                (DataContext as DragDropPopupControlVM)!.DropObjectForHash(o, e);
+                DragDropPlace_NewSingle.Child!.Classes.Remove("dragover");
+                (DataContext as DragDropPopupControlVM)!.DropObjectForHash(o, e).Wait();
             });
 
-            DDSingle.AddHandler(DragDrop.DragLeaveEvent, (o, e) => {
-                DDSingle.Child.Classes.Remove("dragover");
+            DragDropPlace_NewSingle.AddHandler(DragDrop.DragLeaveEvent, (o, e) => {
+                DragDropPlace_NewSingle.Child!.Classes.Remove("dragover");
             });
 
-            DDCompare.AddHandler(DragDrop.DragOverEvent, (o, e) => {
-                DDCompare.Child.Classes.Add("dragover");
+            DragDropPlace_NewCompare.AddHandler(DragDrop.DragOverEvent, (o, e) => {
+                DragDropPlace_NewCompare.Child!.Classes.Add("dragover");
                 (DataContext as DragDropPopupControlVM)!.DragOverAccess(o, e);
             });
 
-            DDCompare.AddHandler(DragDrop.DropEvent, (o, e) => {
+            DragDropPlace_NewCompare.AddHandler(DragDrop.DropEvent, (o, e) => {
                 this.IsVisible = false;
-                DDCompare.Child.Classes.Add("dragover");
-                (DataContext as DragDropPopupControlVM)!.DropObjectForComparing(o, e);
+                DragDropPlace_NewCompare.Child!.Classes.Add("dragover");
+                (DataContext as DragDropPopupControlVM)!.DropObjectForComparing(o, e).Wait();
             });
 
-            DDCompare.AddHandler(DragDrop.DragLeaveEvent, (o, e) => {
-                DDCompare.Child.Classes.Remove("dragover");
+            DragDropPlace_NewCompare.AddHandler(DragDrop.DragLeaveEvent, (o, e) => {
+                DragDropPlace_NewCompare.Child!.Classes.Remove("dragover");
             });
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

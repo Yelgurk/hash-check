@@ -17,12 +17,7 @@ public partial class Settings : UserControl
 
     public Settings(IWindowContentService _windowContentService)
     {
-        this.InitializeComponent();
+        InitializeComponent(true);
         this.DataContext = new SettingsVM() { View = this, WindowContentService = _windowContentService };
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

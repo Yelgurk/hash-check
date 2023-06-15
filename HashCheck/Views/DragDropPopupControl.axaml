@@ -46,7 +46,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate>
-						<ItemsControl Items="{Binding $parent[Label].Content}"
+						<ItemsControl ItemsSource="{Binding $parent[Label].Content}"
 									  VerticalAlignment="Center">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
@@ -100,7 +100,7 @@
 		</Grid.ColumnDefinitions>
 		<Grid Grid.ColumnSpan="2" Background="Black" Opacity="0.8"/>
 
-		<Border Name="DragDropPlace_NewSingle" Grid.Column="0" Background="Transparent">
+		<Border Name="DragDropPlace_NewSingle" DragDrop.AllowDrop="True" Grid.Column="0" Background="Transparent">
 			<Border Classes="dragdrop-choise">
 				<Grid RowDefinitions="1*, Auto">
 					<Path Data="{StaticResource rocket_regular}"/>
@@ -109,7 +109,7 @@
 			</Border>
 		</Border>
 
-		<Border	Name="DragDropPlace_NewCompare" Grid.Column="1" Background="Transparent">
+		<Border	Name="DragDropPlace_NewCompare" DragDrop.AllowDrop="True" Grid.Column="1" Background="Transparent">
 			<Border Classes="dragdrop-choise">
 				<Grid RowDefinitions="1*, Auto">
 					<Path Data="{StaticResource dual_screen_span_regular}"/>

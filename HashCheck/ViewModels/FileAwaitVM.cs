@@ -17,7 +17,7 @@ namespace HashCheck.ViewModels
     public partial class FileAwaitVM : VMBase
     {
         [RelayCommand]
-        async Task PeekFile()
+        public async Task PeekFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog() { AllowMultiple = true };
 
@@ -28,7 +28,7 @@ namespace HashCheck.ViewModels
         }
 
         [RelayCommand]
-        async Task PeekFolder()
+        public async Task PeekFolder()
         {
             OpenFolderDialog openFolderDialog = new OpenFolderDialog();
 
@@ -39,6 +39,6 @@ namespace HashCheck.ViewModels
         }
 
         [RelayCommand]
-        void GoToSettings() => WindowContentService.Set<Settings>();
+        public void GoToSettings() => WindowContentService.Set<Settings>();
     }
 }

@@ -49,7 +49,7 @@
 				<Setter.Value>
 					<ControlTemplate>
 						<Button Tag="{Binding $parent[Button].Tag}"
-								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFile}"
+								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
 								CommandParameter="{Binding $parent[Button].Content}">
 							<DockPanel>
 								<TextBlock Text="Открыть: "/>
@@ -79,7 +79,7 @@
 					<ControlTemplate>
 						<DockPanel>
 							<Button Content="{Binding $parent[Button].Content}"
-									Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboard}"
+									Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboardCommand}"
 									CommandParameter="{Binding $parent[Button].Tag}"/>
 							<ContentPresenter Content="{Binding $parent[Button].Tag}"/>
 						</DockPanel>
@@ -130,7 +130,7 @@
 	</UserControl.Styles>
 
 	<Grid DragDrop.AllowDrop="True" Background="Transparent">
-		<ListBox Items="{Binding Computator.Result}">
+		<ListBox ItemsSource="{Binding Computator.Result}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>
@@ -140,7 +140,7 @@
 						</DockPanel>
 						<Button Classes="btn-open" Tag="{Binding FilePath}"
 								Content="{Binding}"/>
-						<ItemsControl Items="{Binding FileHash}">
+						<ItemsControl ItemsSource="{Binding FileHash}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
 									<StackPanel/>
@@ -161,7 +161,6 @@
 		
 		<Button Classes="btn-back" Content="Назад" Command="{Binding DisplayMainPage}"/>
 
-		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer"
-								IsVisible="False"/>
+		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
 	</Grid>
 </UserControl>

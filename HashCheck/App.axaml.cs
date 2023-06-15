@@ -11,6 +11,7 @@ using System;
 using System.Threading;
 using System.Diagnostics;
 using System.Linq;
+using Avalonia.Themes.Fluent;
 
 namespace HashCheck;
 
@@ -44,7 +45,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
+            //ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
             
             if (desktop.Args.Contains(Program.ServerArg))

@@ -30,14 +30,9 @@ public partial class FileAwait : UserControl
 
     public FileAwait(IWindowContentService _windowContentService)
     {
-        this.InitializeComponent();
+        InitializeComponent(true);
         this.DataContext = new FileAwaitVM() { View = this, WindowContentService = _windowContentService };
 
         this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

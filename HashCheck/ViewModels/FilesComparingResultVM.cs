@@ -18,9 +18,9 @@ namespace HashCheck.ViewModels
         public FilesComparingResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
 
         [RelayCommand]
-        async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
+        public async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
 
         [RelayCommand]
-        async Task CopyHashToClipboard(string hash) => await Application.Current!.Clipboard!.SetTextAsync(hash);
+        public async Task CopyHashToClipboard(string hash) => await this.View.ParentWindow()!.Clipboard!.SetTextAsync(hash);
     }
 }

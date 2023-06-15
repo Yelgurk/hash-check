@@ -23,5 +23,5 @@ public partial class AnalysisResultVM : VMBase
     async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
 
     [RelayCommand]
-    async Task CopyHashToClipboard(string hash) => await Application.Current!.Clipboard!.SetTextAsync(hash);
+    async Task CopyHashToClipboard(string hash) => await this.View.ParentWindow()!.Clipboard!.SetTextAsync(hash);
 }

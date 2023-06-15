@@ -70,6 +70,6 @@ namespace HashCheck.ViewModels
             return new StyleInclude(self) { Source = new Uri(url) };
         }
 
-        private void SetStyles(StyleInclude style) => Avalonia.Application.Current!.Styles[0] = style;
+        private void SetStyles(StyleInclude style) { } //Avalonia.Application.Current!.Styles[0] = style;
     }
 }

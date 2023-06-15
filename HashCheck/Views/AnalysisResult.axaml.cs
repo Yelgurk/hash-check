@@ -13,16 +13,11 @@ namespace HashCheck.Views
 
         public AnalysisResult(IWindowContentService _windowContentService)
         {
-            this.InitializeComponent();
+            this.InitializeComponent(true);
             this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = _windowContentService };
 
 
             this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

@@ -86,7 +86,7 @@
 	</UserControl.Styles>
 	
 	<Grid ColumnDefinitions="Auto, 1*" RowDefinitions="Auto, 1*">
-		<ItemsControl Items="{Binding SettingFile.Hashes}"
+		<ItemsControl ItemsSource="{Binding SettingFile.Hashes}"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Center"
 					  Grid.RowSpan="2">

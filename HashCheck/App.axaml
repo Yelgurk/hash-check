@@ -6,7 +6,7 @@
         <local:ViewLocator/>
     </Application.DataTemplates>
 
-    <Application.Styles>
-		<StyleInclude Source="avares://Citrus.Avalonia/Citrus.xaml"/>
-    </Application.Styles>
+	<Application.Styles>
+		<SimpleTheme/>
+	</Application.Styles>
 </Application>
