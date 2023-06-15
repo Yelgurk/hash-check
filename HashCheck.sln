@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCheck", "HashCheck\HashCheck.csproj", "{EEDA6B50-9557-4FC0-95EC-AA3D43DCFCC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCheck", "HashCheck\HashCheck.csproj", "{6477F210-3298-4E19-ACBE-E159E754DBE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EEDA6B50-9557-4FC0-95EC-AA3D43DCFCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EEDA6B50-9557-4FC0-95EC-AA3D43DCFCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EEDA6B50-9557-4FC0-95EC-AA3D43DCFCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EEDA6B50-9557-4FC0-95EC-AA3D43DCFCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {20618BBC-DADB-457C-ABA5-9202D3E560C3}
+		SolutionGuid = {600E698A-B5F6-4E43-B20A-5EC6F66A3A68}
 	EndGlobalSection
 EndGlobal

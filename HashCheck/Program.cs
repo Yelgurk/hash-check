@@ -1,41 +1,44 @@
 ﻿using Avalonia;
-using System;
-using System.Threading;
-using Grpc.Core;
 using HashCheck.InterProcAPI;
+using System;
 using System.Linq;
+using System.Threading;
 
-namespace HashCheck
+namespace HashCheck;
+
+internal class Program
 {
-    internal class Program
+    public static readonly string ServerArg = "[server]";
+    private static Mutex _mutex = null;
+    public static InterProcServer IPAPI_server;
+
+    [STAThread]
+    public static void Main(string[] args)
     {
-        public static readonly string ServerArg = "[server]";
-        private static Mutex _mutex = null;
-        public static InterProcServer IPAPI_server;
+        bool CreatedAppInstatnce;
+        const string AppName = "HashCheckApp";
+        _mutex = new Mutex(true, AppName, out CreatedAppInstatnce);
 
-        [STAThread]
-        public static void Main(string[] args)
+        if (!CreatedAppInstatnce)
         {
-            bool CreatedAppInstatnce;
-            const string AppName = "HashCheckApp";
-            _mutex = new Mutex(true, AppName, out CreatedAppInstatnce);
-
-            if (!CreatedAppInstatnce)
-            {
-                if (args.Length > 0)
-                    new InterProcClient(args);
-                Environment.Exit(0);
-            }
-            else
-            {
-                IPAPI_server = new InterProcServer();
-                BuildAvaloniaApp().StartWithClassicDesktopLifetime(args.Length == 0 ? new string[] { ServerArg } : args.Append(ServerArg).ToArray());
-            }
+            if (args.Length > 0)
+                new InterProcClient(args);
+            Environment.Exit(0);
         }
-
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToTrace();
+        else
+        {
+            IPAPI_server = new InterProcServer();
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(
+                    args.Length == 0 ?
+                    new string[] { ServerArg } :
+                    args.Append(ServerArg).ToArray()
+                    );
+        }
     }
+
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .LogToTrace();
 }

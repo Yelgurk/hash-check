@@ -1,10 +1,8 @@
 ﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "HashCheck": {
       "commandName": "Project",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
       "applicationUrl": "http://127.0.0.1:50051"
     }
   }

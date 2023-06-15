@@ -1,17 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using HashCheck.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+//using System.Runtime.InteropServices.JavaScript;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HashCheck.Models;
 

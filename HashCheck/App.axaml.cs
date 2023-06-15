@@ -3,15 +3,12 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using HashCheck.Models;
+using HashCheck.ViewModels;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using HashCheck.Models;
-using System;
-using System.Threading;
-using System.Diagnostics;
 using System.Linq;
-using Avalonia.Themes.Fluent;
 
 namespace HashCheck;
 
@@ -45,9 +42,8 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            //ExpressionObserver.DataValidators.RemoveAll(x => x is DataAnnotationsValidationPlugin);
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
-            
+
             if (desktop.Args.Contains(Program.ServerArg))
                 desktop!.Exit += (sender, args) => Program.IPAPI_server.ShutdownAsync();
 
@@ -55,7 +51,7 @@ public partial class App : Application
                 App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(desktop.Args.Take(desktop.Args.Length - 1).ToArray());
         }
 
-        base.OnFrameworkInitializationCompleted();    
+        base.OnFrameworkInitializationCompleted();
     }
 }
 

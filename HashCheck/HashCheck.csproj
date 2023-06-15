@@ -3,30 +3,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-rc1.1" />
-		<PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc1.1" />
-		<PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
-		<PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
-		<PackageReference Include="Microsoft.Composition" Version="1.0.31" />
-		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
-		<Protobuf Include="InterProcAPI\HSService.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.23.2" />
-		<PackageReference Include="Google.Protobuf.Tools" Version="3.14.0" />
-		<PackageReference Include="Grpc.Core" Version="2.35.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.54.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -38,27 +17,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1.1" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-rc1.1" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Citrus.Avalonia" Version="1.6.1" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc1.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-    <PackageReference Include="EventBinder.Avalonia" Version="2.5.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaXaml Remove="Views\AnalysisFinish.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Views\AnalysisFinish.axaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\AnalysisResult.axaml.cs">
-      <DependentUpon>AnalysisResult.axaml</DependentUpon>
-    </Compile>
+	<PackageReference Include="Google.Protobuf" Version="3.23.3" />
+	<PackageReference Include="Google.Protobuf.Tools" Version="3.23.3" />
+	<PackageReference Include="Grpc.Core" Version="2.46.6" />
+	<PackageReference Include="Grpc.Net.Client" Version="2.53.0" />
+	<PackageReference Include="Grpc.Tools" Version="2.54.0">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<Protobuf Include="InterProcAPI\HSService.proto" />
   </ItemGroup>
 </Project>

@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HashCheck.Views.FilesComparingResult"
-			 DragDrop.AllowDrop="True"
 			 Background="Transparent">
 	<UserControl.DataContext>
 		<vm:FilesComparingResultVM/>
@@ -67,7 +66,7 @@
 									CommandParameter="{Binding $parent[Button].Tag}"
 									HorizontalAlignment="Left"
 									Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>
-								
+
 							<ContentPresenter Content="{Binding $parent[Button].Tag}"
 											  HorizontalAlignment="Right"
 											  Margin="60 0 10 0"/>
@@ -96,7 +95,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
+
 		<Style Selector="Button.hash-copy /template/ Button">
 			<Setter Property="Margin" Value="2"/>
 			<Setter Property="Width" Value="60"/>
@@ -152,11 +151,11 @@
 				</Transitions>
 			</Setter>
 		</Style>
-			
+
 		<Style Selector="Button.btn-back:pointerover Path">
 			<Setter Property="RenderTransform" Value="scale(1.33)"/>
 		</Style>
-			
+
 		<Style Selector="Button.btn-back:pointerover">
 			<Setter Property="Width" Value="42"/>
 			<Setter Property="Height" Value="42"/>
@@ -167,8 +166,8 @@
 			<Setter Property="Foreground" Value="Black"/>
 			<Setter Property="TextBlock.FontFamily" Value="Montserrat"/>
 		</Style>
-		
-	
+
+
 		<Style Selector="TextBlock">
 			<Setter Property="FontFamily" Value="Montserrat"/>
 			<Setter Property="Grid.ColumnSpan" Value="2"/>
@@ -200,11 +199,11 @@
 		<Button Classes="btn-back" Command="{Binding DisplayMainPage}">
 			<Path Data="{StaticResource rewind_regular}" Classes="btn-back-content"/>
 		</Button>
-		
+
 		<TextBlock Text="{Binding Computator.Result[0].FileName}"
 				   HorizontalAlignment="Right"
 				   Classes="tb-filename"/>
-		
+
 		<TextBlock Text="{Binding Computator.Result[1].FileName}"
 				   HorizontalAlignment="Left"
 				   Grid.Column="2"

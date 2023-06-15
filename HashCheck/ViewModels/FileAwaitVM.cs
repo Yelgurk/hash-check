@@ -39,6 +39,6 @@ namespace HashCheck.ViewModels
         }
 
         [RelayCommand]
-        public void GoToSettings() => WindowContentService.Set<Settings>();
+        public void GoToSettings() => (WindowContentService as IWindowContentService).Set<Settings>();
     }
 }

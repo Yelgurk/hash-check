@@ -2,11 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
-             x:Class="HashCheck.Views.AnalysisResult"
-			 DragDrop.AllowDrop="True">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HashCheck.Views.AnalysisResult">
 	<UserControl.DataContext>
 		<vm:AnalysisResultVM/>
 	</UserControl.DataContext>
@@ -31,7 +30,7 @@
 		<Style Selector="ListBox">
 			<Setter Property="Margin" Value="0"/>
 		</Style>
-		
+
 		<Style Selector="ListBox ListBoxItem">
 			<Setter Property="BorderThickness" Value="5 0 0 0"/>
 			<Setter Property="Margin" Value="0"/>
@@ -158,7 +157,7 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		
+
 		<Button Classes="btn-back" Content="Назад" Command="{Binding DisplayMainPage}"/>
 
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>

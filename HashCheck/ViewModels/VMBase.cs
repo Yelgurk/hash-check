@@ -13,26 +13,26 @@ namespace HashCheck.ViewModels
     {
         public required ContentControl View { get; init; }
 
-        public required IWindowContentService WindowContentService { get; init; }
+        public required WindowContentService WindowContentService { get; init; }
 
-        public void DisplayMainPage() => WindowContentService.Set<FileAwait>();
+        public void DisplayMainPage() => (WindowContentService as IWindowContentService).Set<FileAwait>();
 
         public void DragOverAccess(object sender, DragEventArgs e)
         {
             e.DragEffects = e.DragEffects & DragDropEffects.Link;
-            if (!e.Data.Contains(DataFormats.FileNames))
+            if (!e.Data.Contains(DataFormats.Files))
                 e.DragEffects = DragDropEffects.None;
         }
 
         public async Task DropObjectForHash(object sender, DragEventArgs e)
         {
-            if (e.Data.Contains(DataFormats.FileNames))
+            if (e.Data.Contains(DataFormats.Files))
                 App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(e.Data.GetFileNames()!.ToArray());
         }
 
         public async Task DropObjectForComparing(object sender, DragEventArgs e)
         {
-            if (e.Data.Contains(DataFormats.FileNames))
+            if (e.Data.Contains(DataFormats.Files))
                 App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(e.Data.GetFileNames()!.ToArray(), true);
         }
     }

@@ -1,23 +1,20 @@
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-
 using HashCheck.ViewModels;
 
-namespace HashCheck.Views
+namespace HashCheck.Views;
+
+public partial class AnalysisResult : UserControl
 {
-    public partial class AnalysisResult : UserControl
+    public AnalysisResult() : this(new WindowContentService())
+    { }
+
+    public AnalysisResult(IWindowContentService _windowContentService)
     {
-        public AnalysisResult() : this(new WindowContentService())
-        { }
-
-        public AnalysisResult(IWindowContentService _windowContentService)
-        {
-            this.InitializeComponent(true);
-            this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = _windowContentService };
+        this.InitializeComponent(true);
+        this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = (WindowContentService)_windowContentService };
 
 
-            this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
-        }
+        this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
     }
 }

@@ -6,7 +6,7 @@
         <local:ViewLocator/>
     </Application.DataTemplates>
 
-	<Application.Styles>
-		<SimpleTheme/>
-	</Application.Styles>
+    <Application.Styles>
+		<FluentTheme/>
+    </Application.Styles>
 </Application>

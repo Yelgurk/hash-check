@@ -1,15 +1,14 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
-			 xmlns:e="clr-namespace:EventBinder;assembly=EventBinder.Avalonia"
-			 mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HashCheck.Views.FileAwait">
-    <UserControl.DataContext>
-        <vm:FileAwaitVM/>
-    </UserControl.DataContext>
+	<UserControl.DataContext>
+		<vm:FileAwaitVM/>
+	</UserControl.DataContext>
 	<UserControl.Resources>
 		<StreamGeometry x:Key="folder_open_regular">M20 9.50195V8.74985C20 7.50721 18.9926 6.49985 17.75 6.49985H12.0247L9.64368 4.51995C9.23959 4.18393 8.73063 3.99997 8.20509 3.99997H4.24957C3.00724 3.99997 2 5.00686 1.99957 6.24919L1.99561 17.7492C1.99518 18.9921 3.00266 20 4.24561 20H4.27196C4.27607 20 4.28019 20 4.28431 20H18.4693C19.2723 20 19.9723 19.4535 20.167 18.6745L21.9169 11.6765C22.1931 10.5719 21.3577 9.50195 20.2192 9.50195H20ZM4.24957 5.49997H8.20509C8.38027 5.49997 8.54993 5.56129 8.68462 5.6733L11.2741 7.82652C11.4088 7.93852 11.5784 7.99985 11.7536 7.99985H17.75C18.1642 7.99985 18.5 8.33563 18.5 8.74985V9.50195H6.42385C5.39136 9.50195 4.49137 10.2047 4.241 11.2064L3.49684 14.1837L3.49957 6.24971C3.49971 5.8356 3.83546 5.49997 4.24957 5.49997ZM5.69623 11.5701C5.77969 11.2362 6.07969 11.002 6.42385 11.002H20.2192C20.3819 11.002 20.5012 11.1548 20.4617 11.3126L18.7119 18.3107C18.684 18.4219 18.584 18.5 18.4693 18.5H4.28431C4.12167 18.5 4.00233 18.3472 4.04177 18.1894L5.69623 11.5701Z</StreamGeometry>
 		<StreamGeometry x:Key="note_regular">M17.75,3 C19.5449254,3 21,4.45507456 21,6.25 L21,13.1286797 C21,13.7254168 20.7629471,14.2977131 20.3409903,14.7196699 L14.7196699,20.3409903 C14.2977131,20.7629471 13.7254168,21 13.1286797,21 L6.25,21 C4.45507456,21 3,19.5449254 3,17.75 L3,6.25 C3,4.45507456 4.45507456,3 6.25,3 L17.75,3 Z M17.75,4.5 L6.25,4.5 C5.28350169,4.5 4.5,5.28350169 4.5,6.25 L4.5,17.75 C4.5,18.7164983 5.28350169,19.5 6.25,19.5 L13,19.5 L13,16.25 C13,14.5169685 14.3564548,13.1007541 16.0655761,13.0051448 L16.25,13 L19.5,13 L19.5,6.25 C19.5,5.28350169 18.7164983,4.5 17.75,4.5 Z M18.439,14.5 L16.25,14.5 C15.3318266,14.5 14.5788077,15.2071103 14.5058012,16.1064728 L14.5,16.25 L14.5,18.439 L18.439,14.5 Z</StreamGeometry>
@@ -40,7 +39,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
+
 		<Style Selector="Button.single-btn Path">
 			<Setter Property="StrokeThickness" Value="1"/>
 			<Setter Property="Stroke" Value="Black"/>
@@ -64,7 +63,7 @@
 				</Transitions>
 			</Setter>
 		</Style>
-		
+
 		<Style Selector="Button.single-btn:pointerover /template/ Grid ContentPresenter">
 			<Setter Property="Width" Value="{Binding $parent[Button].Bounds.Width}"/>
 			<Setter Property="Height" Value="{Binding $parent[Button].Bounds.Height}"/>
@@ -84,17 +83,17 @@
 
 			<Button Classes="single-btn" Grid.ColumnSpan="2"
 					Command="{Binding GoToSettings}" Tag="НАСТРОЙКИ">
-					<Path Data="{StaticResource settings_regular}"/>
+				<Path Data="{StaticResource settings_regular}"/>
 			</Button>
-		
+
 			<Button Classes="single-btn" Grid.Column="0" Grid.Row="2"
 					Command="{Binding PeekFileCommand}" Tag="ФАЙЛ">
-					<Path Data="{StaticResource note_regular}"/>
+				<Path Data="{StaticResource note_regular}"/>
 			</Button>
-		
+
 			<Button Classes="single-btn" Grid.Column="1" Grid.Row="2"
 					Command="{Binding PeekFolderCommand}" Tag="ПАПКА">
-					<Path Data="{StaticResource folder_open_regular}"/>
+				<Path Data="{StaticResource folder_open_regular}"/>
 			</Button>
 		</Grid>
 
