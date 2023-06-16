@@ -100,7 +100,7 @@
 				<DataTemplate>
 					<Border>
 						<DockPanel>
-							<CheckBox IsChecked="{Binding IsSelected}"/>
+							<CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
 							<TextBlock Text="{Binding HashName}" FontSize="14" />
 						</DockPanel>
 					</Border>
@@ -113,6 +113,20 @@
 			<Path Data="{StaticResource arrow_curve_left_regular}"/>
 		</Button>
 
-		<TextBlock Grid.Column="1" Grid.Row="1" Text="тут настрйока тем"/>
+		<Grid Grid.Column="1" Grid.Row="1">
+			<ListBox ItemsSource="{Binding StylesList}"
+					 SelectedItem="{Binding StyleSelected}">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<DockPanel/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
 	</Grid>
 </UserControl>

@@ -14,6 +14,6 @@ public partial class FilesComparingResult : UserControl
         InitializeComponent(true);
         this.DataContext = new FilesComparingResultVM() { View = this, WindowContentService = (WindowContentService)_windowContentService };
 
-        this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
+        this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { DragDropPlace_ChoiceContainer.IsVisible = true; });
     }
 }

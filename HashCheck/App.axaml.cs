@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
 using HashCheck.Models;
 using HashCheck.ViewModels;
 using HashCheck.Views;
@@ -14,11 +15,16 @@ namespace HashCheck;
 
 public partial class App : Application
 {
+    private static App? THIS { get; set; }
+
     public static IHost? Host { get; private set; }
+
+    public static void SetTheme(ThemeVariant theme) => THIS!.RequestedThemeVariant = theme;
 
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        THIS = THIS ?? this;
 
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
             .ConfigureServices(services =>

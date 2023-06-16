@@ -1,7 +1,8 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:HashCheck"
-             x:Class="HashCheck.App">
+             x:Class="HashCheck.App"
+			 RequestedThemeVariant="Light">
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>

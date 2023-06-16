@@ -6,6 +6,7 @@
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HashCheck.Views.FilesComparingResult"
+			 DragDrop.AllowDrop="True"
 			 Background="Transparent">
 	<UserControl.DataContext>
 		<vm:FilesComparingResultVM/>
@@ -23,7 +24,7 @@
 				<Setter.Value>
 					<ControlTemplate>
 						<Button Tag="{Binding $parent[Button].Tag}"
-								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFile}"
+								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
 								CommandParameter="{Binding $parent[Button].Content}">
 							<DockPanel>
 								<TextBlock Text="Открыть: "/>
@@ -62,7 +63,7 @@
 					<ControlTemplate>
 						<Grid>
 							<Button Content="{Binding $parent[Button].Content}"
-									Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboard}"
+									Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboardCommand}"
 									CommandParameter="{Binding $parent[Button].Tag}"
 									HorizontalAlignment="Left"
 									Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>

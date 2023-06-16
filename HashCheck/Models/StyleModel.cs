@@ -1,4 +1,5 @@
 ﻿using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HashCheck.Models
@@ -9,6 +10,6 @@ namespace HashCheck.Models
         private string name;
 
         [ObservableProperty]
-        private StyleInclude resource;
+        private ThemeVariant resource;
     }
 }

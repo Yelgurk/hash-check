@@ -1,4 +1,5 @@
 ﻿using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HashCheck.Models;
 using HashCheck.Views;
@@ -21,7 +22,7 @@ namespace HashCheck.ViewModels
 
         public StyleModel StyleSelected
         {
-            get => _styleSelected ?? StylesList[0];
+            get => _styleSelected ?? new StyleModel() { Name = "debug", Resource = ThemeVariant.Light };
             set
             {
                 if (SetProperty(ref _styleSelected, value))
@@ -56,20 +57,13 @@ namespace HashCheck.ViewModels
 
             StylesList = new ObservableCollection<StyleModel>()
             {
-                new StyleModel() { Name = "Светлая", Resource = CreateStyle("avares://Citrus.Avalonia/Citrus.xaml") },
-                new StyleModel() { Name = "Тёмная", Resource = CreateStyle("avares://Citrus.Avalonia/Rust.xaml") },
-                new StyleModel() { Name = "Система (пока нет)", Resource = CreateStyle("avares://Citrus.Avalonia/Magma.xaml") }
+                new StyleModel() { Name = "Светлая", Resource = ThemeVariant.Light },
+                new StyleModel() { Name = "Тёмная", Resource = ThemeVariant.Dark }
             };
 
             this.StyleSelected = StylesList[SettingFile.Theme < StylesList.Count ? SettingFile.Theme : 0];
         }
 
-        private static StyleInclude CreateStyle(string url)
-        {
-            Uri self = new Uri("resm:Styles?assembly=HashCheck");
-            return new StyleInclude(self) { Source = new Uri(url) };
-        }
-
-        private void SetStyles(StyleInclude style) { } //Avalonia.Application.Current!.Styles[0] = style;
+        private void SetStyles(ThemeVariant theme) => App.SetTheme(theme);
     }
 }
