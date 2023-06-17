@@ -9,19 +9,23 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaXaml Remove="FontFamily\**" />
+    <Compile Remove="FontFamily\**" />
+    <EmbeddedResource Remove="FontFamily\**" />
+    <None Remove="FontFamily\**" />
     <None Remove=".gitignore" />
   </ItemGroup>
 
   <ItemGroup>
     <TrimmerRootDescriptor Include="Roots.xml" />
   </ItemGroup>
-
+	
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-rc1.1" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-rc1.1" />
+    <PackageReference Include="Avalonia" Version="11.0.999-cibuild0036240-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.999-cibuild0036240-beta" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.999-cibuild0036240-beta" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.999-cibuild0036240-beta" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.999-cibuild0036240-beta" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
@@ -37,5 +41,9 @@
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
 	<Protobuf Include="InterProcAPI\HSService.proto" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <AvaloniaResource Include="Fonts\Montserrat-Regular.ttf" />
   </ItemGroup>
 </Project>

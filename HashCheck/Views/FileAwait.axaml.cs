@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Themes.Fluent;
 using HashCheck.ViewModels;
 
 namespace HashCheck.Views;

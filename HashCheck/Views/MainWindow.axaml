@@ -6,9 +6,17 @@
         mc:Ignorable="d" Width="400" Height="250"
         x:Class="HashCheck.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="HashCheck">
+        Title="HashCheck"
+		TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+		Background="Transparent">
 
     <Design.DataContext>
         <vm:MainWindowVM/>
     </Design.DataContext>
+
+	<Grid>
+		<Panel Name="BackgroundBlur"/>
+		<UserControl Name="ContentPresenter"/>
+	</Grid>
 </Window>

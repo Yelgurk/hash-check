@@ -1,4 +1,6 @@
-﻿using Avalonia.Markup.Xaml.Styling;
+﻿using Avalonia.Controls;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -11,5 +13,8 @@ namespace HashCheck.Models
 
         [ObservableProperty]
         private ThemeVariant resource;
+
+        [ObservableProperty]
+        private ExperimentalAcrylicBorder windowBackground;
     }
 }

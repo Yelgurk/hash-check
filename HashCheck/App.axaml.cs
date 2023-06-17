@@ -4,6 +4,7 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using Avalonia.Themes.Fluent;
 using HashCheck.Models;
 using HashCheck.ViewModels;
 using HashCheck.Views;
@@ -40,7 +41,7 @@ public partial class App : Application
             })
             .Build();
 
-        Host.Services.GetRequiredService<MainWindow>().Content = Host.Services.GetRequiredService<FileAwait>();
+        Host.Services.GetRequiredService<MainWindow>().SetContent(Host.Services.GetRequiredService<FileAwait>());
         Host.Services.GetRequiredService<Settings>();
     }
 

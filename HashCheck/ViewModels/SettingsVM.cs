@@ -1,4 +1,7 @@
-﻿using Avalonia.Markup.Xaml.Styling;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HashCheck.Models;
@@ -31,7 +34,7 @@ namespace HashCheck.ViewModels
                     SettingFile.SaveSettings(SettingPath);
                 }
 
-                SetStyles(value.Resource);
+                SetStyles(value);
             }
         }
 
@@ -57,13 +60,17 @@ namespace HashCheck.ViewModels
 
             StylesList = new ObservableCollection<StyleModel>()
             {
-                new StyleModel() { Name = "Светлая", Resource = ThemeVariant.Light },
-                new StyleModel() { Name = "Тёмная", Resource = ThemeVariant.Dark }
+                new StyleModel() { Name = "Светлая", Resource = ThemeVariant.Light, WindowBackground = MainWindow.LightWindowBackground },
+                new StyleModel() { Name = "Тёмная", Resource = ThemeVariant.Dark, WindowBackground = MainWindow.DarkWindowBackground }
             };
 
             this.StyleSelected = StylesList[SettingFile.Theme < StylesList.Count ? SettingFile.Theme : 0];
         }
 
-        private void SetStyles(ThemeVariant theme) => App.SetTheme(theme);
+        private void SetStyles(StyleModel Style)
+        {
+            App.Host!.Services.GetRequiredService<MainWindow>()!.SetBackground(Style.WindowBackground);
+            App.SetTheme(Style.Resource);
+        }
     }
 }
