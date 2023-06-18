@@ -72,12 +72,16 @@
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="50"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
 						<RowDefinition/>
 					</Grid.RowDefinitions>
+					
 					<Button Classes="btn-contentPath" Tag="НАЗАД"
 						    Command="{Binding $parent[UserControl].DataContext.DisplayMainPage}">
 						<Path Data="{StaticResource arrow_curve_left_regular}"/>
 					</Button>
+					
 					<ListBox ItemsSource="{Binding StylesList}"
 							 SelectedItem="{Binding StyleSelected}"
 							 VerticalAlignment="Top"
@@ -101,54 +105,11 @@
 							</DataTemplate>
 						</ListBox.ItemTemplate>
 					</ListBox>
+					
+					<CheckBox Content="Прозрачный" Grid.Row="2"
+							  IsChecked="{Binding StyleSelected.TransparentSetter}"/>
 				</Grid>
 			</TabItem.Content>
 		</TabItem>
 	</TabControl>
-	
-	<!--
-	<Grid ColumnDefinitions="Auto, 1*" RowDefinitions="Auto, 1*">
-		<ItemsControl ItemsSource="{Binding SettingFile.Hashes}"
-					  VerticalAlignment="Center"
-					  HorizontalAlignment="Center"
-					  Grid.RowSpan="2">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Border>
-						<DockPanel>
-							<CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-							<TextBlock Text="{Binding HashName}" FontSize="14" />
-						</DockPanel>
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-
-		<Button Classes="btn-back" Grid.Column="1" Tag="НАЗАД"
-				Command="{Binding DisplayMainPage}">
-			<Path Data="{StaticResource arrow_curve_left_regular}"/>
-		</Button>
-
-		<Grid Grid.Column="1" Grid.Row="1">
-			<ListBox ItemsSource="{Binding StylesList}"
-					 SelectedItem="{Binding StyleSelected}">
-				<ListBox.ItemsPanel>
-					<ItemsPanelTemplate>
-						<DockPanel/>
-					</ItemsPanelTemplate>
-				</ListBox.ItemsPanel>
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding Name}"/>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-		</Grid>
-	</Grid>
-	-->
 </UserControl>

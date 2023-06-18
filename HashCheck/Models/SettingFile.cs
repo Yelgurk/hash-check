@@ -4,8 +4,8 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-//using System.Runtime.InteropServices.JavaScript;
 using CommunityToolkit.Mvvm.ComponentModel;
+using HashCheck.Models.Interface;
 
 namespace HashCheck.Models;
 
@@ -13,7 +13,7 @@ public partial class SettingFile : ObservableObject, IDisposable
 {
     public ObservableCollection<HashModel> Hashes { get; set; }
 
-    public int Theme { get; set; }
+    public IStyleModel Theme { get; set; }
 
     [JsonConstructor]
     public SettingFile() { }
@@ -21,7 +21,6 @@ public partial class SettingFile : ObservableObject, IDisposable
     public SettingFile(HashComputator hashComputator)
     {
         this.Hashes = hashComputator.Hashes;
-        this.Theme = 0;
     }
 
     public void SaveSettings(string path)
@@ -41,7 +40,7 @@ public partial class SettingFile : ObservableObject, IDisposable
         using (FileStream fs = new FileStream(path, FileMode.Open))
         {
             JsonNode jObj = JsonObject.Parse(fs)!;
-            Theme = JsonSerializer.Deserialize<int>(jObj!["Theme"]);
+            Theme = JsonSerializer.Deserialize<StyleModel>(jObj!["Theme"]);
 
             if (JsonSerializer.Deserialize<ObservableCollection<HashModel>>(jObj!["Hashes"])!.Count == this.Hashes.Count)
             {

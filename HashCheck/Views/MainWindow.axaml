@@ -3,7 +3,9 @@
         xmlns:vm="using:HashCheck.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Width="400" Height="250"
+        mc:Ignorable="d"
+		MinWidth="400" Width="400"
+		MinHeight="250" Height="250"
         x:Class="HashCheck.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="HashCheck"
@@ -15,13 +17,15 @@
         <vm:MainWindowVM/>
     </Design.DataContext>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="30"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		
-		<Panel Name="BackgroundBlur" Grid.RowSpan="2"/>
-		<UserControl Name="ContentPresenter" Grid.Row="1"/>
-	</Grid>
+	<Border BorderThickness="1" BorderBrush="LightGray">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Panel Name="BackgroundBlur" Grid.RowSpan="2"/>
+			<UserControl Name="ContentPresenter" Grid.Row="1"/>
+		</Grid>
+	</Border>
 </Window>

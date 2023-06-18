@@ -20,7 +20,7 @@
 			<Setter Property="Data" Value="{StaticResource note_regular}"/>
 			<Setter Property="StrokeThickness" Value="1"/>
 			<Setter Property="Stroke" Value="{DynamicResource PathColor}"/>
-			<Setter Property="Margin" Value="0 -3 0 3"/>
+			<Setter Property="Margin" Value="0 2 0 -2"/>
 		</Style>
 
 		<Style Selector="ListBox.list-result">
@@ -31,21 +31,49 @@
 
 		<Style Selector="ListBox.list-result Label.btn-openHashFile">
 			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Button Tag="{Binding $parent[Label].Tag}"
-								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
-								CommandParameter="{Binding $parent[Label].Content}">
-							<DockPanel>
-								<TextBlock Text="Открыть: "/>
-								<TextBlock Text="{Binding $parent[Label].Tag}"/>
-							</DockPanel>
-						</Button>
-					</ControlTemplate>
-				</Setter.Value>
+				<ControlTemplate>
+					<Button Tag="{Binding $parent[Label].Tag}"
+							Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
+							CommandParameter="{Binding $parent[Label].Content}">
+						<DockPanel>
+							<TextBlock Text="Открыть: "/>
+							<TextBlock Text="{Binding $parent[Label].Tag}"/>
+						</DockPanel>
+					</Button>
+				</ControlTemplate>
 			</Setter>
 		</Style>
 
+		<Style Selector="ListBox.list-result Label.btn-hashCopy">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+
+						<Button Content="{Binding $parent[Label].Content}"
+								Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboardCommand}"
+								CommandParameter="{Binding $parent[Label].Tag}"/>
+						<TextBlock Text="{Binding $parent[Label].Tag}" Grid.Column="1"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="ListBox.list-result TextBlock, Label.text-fileName TextBlock">
+			<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="12"/>
+		</Style>
+
+		<Style Selector="ListBox.list-result Label.btn-hashCopy Button">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="0 4"/>
+			<Setter Property="Margin" Value="0 0 10 0"/>
+		</Style>
+		
 		<Style Selector="Label.text-fileName">
 			<Setter Property="Template">
 				<ControlTemplate>
@@ -58,11 +86,14 @@
 		</Style>
 
 		<Style Selector="Label.text-fileName TextBlock">
-			<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
 			<Setter Property="Margin" Value="5 0"/>
 		</Style>
 
-		<Style Selector="ListBox.list-result ListBoxItem:pointerover">
+		<Style Selector="ListBox.list-result ListBoxItem">
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="ListBox.list-result ListBoxItem /template/ ContentPresenter">
 			<Setter Property="Background" Value="Transparent"/>
 		</Style>
 	</UserControl.Styles>
@@ -103,9 +134,8 @@
 								</ItemsControl.ItemsPanel>
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-										<Button Classes="hash-copy" Tag="{Binding HashValue}">
-											<TextBlock Text="{Binding HashName}"/>
-										</Button>
+										<Label Classes="btn-hashCopy" Tag="{Binding HashValue}"
+											   Content="{Binding HashName}"/>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>

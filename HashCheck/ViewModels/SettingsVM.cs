@@ -1,10 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Google.Protobuf.WellKnownTypes;
 using HashCheck.Models;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,74 +20,74 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace HashCheck.ViewModels
+namespace HashCheck.ViewModels;
+
+public partial class SettingsVM : VMBase
 {
-    public partial class SettingsVM : VMBase
+    private StyleModel? _styleSelected;
+
+    public StyleModel StyleSelected
     {
-        private StyleModel? _styleSelected;
-
-        public StyleModel StyleSelected
+        get => _styleSelected ?? StylesList[0];
+        set
         {
-            get => _styleSelected ?? new StyleModel() { Name = "debug", Resource = ThemeVariant.Light };
-            set
+            if (SetProperty(ref _styleSelected, value))
             {
-                if (SetProperty(ref _styleSelected, value))
-                {
-                    SettingFile.Theme = StylesList.IndexOf(value);
-                    SettingFile.SaveSettings(SettingPath);
-                }
-
-                SetStyles(value);
-            }
-        }
-
-        public ObservableCollection<StyleModel> StylesList { get; private init; }
-
-        public SettingFile SettingFile { get; init; }
-
-        private static readonly string SettingFileName = "settings.json";
-
-        public static string SettingPath => $"{AppDomain.CurrentDomain.BaseDirectory}\\{SettingFileName}";
-
-        public SettingsVM()
-        {
-            SettingFile = App.Host!.Services.GetRequiredService<SettingFile>()!;
-
-            if (!File.Exists(SettingPath))
-            {
+                SettingFile.Theme = value;
                 SettingFile.SaveSettings(SettingPath);
-                (new WindowContentService() as IWindowContentService).Set<Settings>();
             }
-            else
-                SettingFile.LoadSettings(SettingPath);
 
-            StylesList = new ObservableCollection<StyleModel>()
-            {
-                new StyleModel()
-                {
-                    Name = "Светлая",
-                    Resource = ThemeVariant.Light,
-                    WindowBackground = MainWindow.LightWindowBackground,
-                    ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemePrimary"]! },
-                    ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! }
-                },
-                new StyleModel()
-                {
-                    Name = "Тёмная",
-                    Resource = ThemeVariant.Dark,
-                    WindowBackground = MainWindow.DarkWindowBackground,
-                    ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemePrimary"]! },
-                    ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! }
-                }
-            };
-
-            this.StyleSelected = StylesList[SettingFile.Theme < StylesList.Count ? SettingFile.Theme : 0];
+            SetStyles(value);
+            OnPropertyChanged(nameof(value.TransparentSetter));
         }
+    } 
 
-        private void SetStyles(StyleModel Style)
+    public ObservableCollection<StyleModel> StylesList { get; } = new ObservableCollection<StyleModel>()
+    {
+        new StyleModel()
         {
-            App.Host!.Services.GetRequiredService<MainWindow>()!.SetBackground(Style.WindowBackground);
-            App.SetTheme(Style.Resource);
+            Name = "Light",
+            Resource = ThemeVariant.Light,
+            WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.WhiteSmoke.Color),
+            ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemePrimary"]! },
+            ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! }
+        },
+        new StyleModel()
+        {
+            Name = "Dark",
+            Resource = ThemeVariant.Dark,
+            WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.Black.Color),
+            ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemePrimary"]! },
+            ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! }
         }
+    };
+
+    public static SettingFile SettingFile { get; private set; }
+
+    private static readonly string SettingFileName = "settings.json";
+
+    public static string SettingPath => $"{AppDomain.CurrentDomain.BaseDirectory}\\{SettingFileName}";
+
+    public SettingsVM()
+    {
+        SettingFile = App.Host!.Services.GetRequiredService<SettingFile>()!;
+
+        if (!File.Exists(SettingPath))
+        {
+            SettingFile.SaveSettings(SettingPath);
+            (new WindowContentService() as IWindowContentService).Set<Settings>();
+        }
+        else
+            SettingFile.LoadSettings(SettingPath);
+
+        StyleModel Loaded = StylesList.Where((x) => x.IsEqual(SettingFile.Theme as StyleModel)).SingleOrDefault(StylesList[0]);
+        Loaded.IsTransparent = SettingFile.Theme.IsTransparent;
+        StyleSelected = Loaded;
+    }
+
+    private void SetStyles(StyleModel Style)
+    {
+        App.Host!.Services.GetRequiredService<MainWindow>()!.SetBackground(Style.WindowBackground);
+        App.SetTheme(Style.Resource);
     }
 }
