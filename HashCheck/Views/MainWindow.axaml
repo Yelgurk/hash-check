@@ -16,7 +16,12 @@
     </Design.DataContext>
 
 	<Grid>
-		<Panel Name="BackgroundBlur"/>
-		<UserControl Name="ContentPresenter"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		
+		<Panel Name="BackgroundBlur" Grid.RowSpan="2"/>
+		<UserControl Name="ContentPresenter" Grid.Row="1"/>
 	</Grid>
 </Window>

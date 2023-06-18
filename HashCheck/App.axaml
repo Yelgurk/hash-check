@@ -9,6 +9,23 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<FontFamily x:Key="MontserratFont">avares://HashCheck/Fonts/Montserrat-Regular.ttf#Montserrat</FontFamily>
+
+			<Color x:Key="LightThemePrimary">#7CB036</Color>
+			<Color x:Key="LightThemeBase">#C2DCC5</Color>
+			<Color x:Key="DarkThemePrimary">#A199AA</Color>
+			<Color x:Key="DarkThemeBase">#574E63</Color>
+			
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Default">
+					<SolidColorBrush x:Key="PathColor" Color="Black"/>
+					<SolidColorBrush x:Key="CheckBoxColor" Color="{StaticResource LightThemeBase}"/>
+				</ResourceDictionary>
+				
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="PathColor" Color="White"/>
+					<SolidColorBrush x:Key="CheckBoxColor" Color="{StaticResource DarkThemeBase}"/>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
 	
@@ -16,26 +33,10 @@
 		<FluentTheme>
 			<FluentTheme.Palettes>
 				<ColorPaletteResources x:Key="Default"
-									   Accent="#FFA5D36D" AltHigh="#FFFFFFFF" AltLow="#FFFFFFFF"
-									   AltMedium="#FFFFFFFF" AltMediumHigh="#FFFFFFFF"
-									   AltMediumLow="#FFFFFFFF" BaseHigh="#FF000000" BaseLow="#FFC5DBBB"
-									   BaseMedium="#FF7A986F" BaseMediumHigh="#FF486C3C" BaseMediumLow="#FF618255"
-									   ChromeAltLow="#FF486C3C" ChromeBlackHigh="#FF000000" ChromeBlackLow="#FFC5DBBB"
-									   ChromeBlackMedium="#FF486C3C" ChromeBlackMediumLow="#FF7A986F" ChromeDisabledHigh="#FFC5DBBB"
-									   ChromeDisabledLow="#FF7A986F" ChromeGray="#FF618255" ChromeHigh="#FFC5DBBB"
-									   ChromeLow="#FFE5F4DD" ChromeMedium="#FFDFEFD6" ChromeMediumLow="#FFE5F4DD"
-									   ChromeWhite="#FFFFFFFF" ListLow="#FFDFEFD6" ListMedium="#FFC5DBBB"/>
+									   Accent="#FF7CB036" AltHigh="#FFFFFFFF" AltLow="#FFFFFFFF" AltMedium="#FFFFFFFF" AltMediumHigh="#FFFFFFFF" AltMediumLow="#FFFFFFFF" BaseHigh="#FF000000" BaseLow="#FFC2DCC5" BaseMedium="#FF72997A" BaseMediumHigh="#FF3D6D48" BaseMediumLow="#FF588361" ChromeAltLow="#FF3D6D48" ChromeBlackHigh="#FF000000" ChromeBlackLow="#FFC2DCC5" ChromeBlackMedium="#FF3D6D48" ChromeBlackMediumLow="#FF72997A" ChromeDisabledHigh="#FFC2DCC5" ChromeDisabledLow="#FF72997A" ChromeGray="#FF588361" ChromeHigh="#FFC2DCC5" ChromeLow="#FFDFF5E4" ChromeMedium="#FFD9F0DE" ChromeMediumLow="#FFDFF5E4" ChromeWhite="#FFFFFFFF" ListLow="#FFD9F0DE" ListMedium="#FFC2DCC5"/>
 
 				<ColorPaletteResources x:Key="Dark"
-									   Accent="#FF735184" AltHigh="#FF000000"
-									   AltLow="#FF000000" AltMedium="#FF000000" AltMediumHigh="#FF000000"
-									   AltMediumLow="#FF000000" BaseHigh="#FFFFFFFF" BaseLow="#FF474A51"
-									   BaseMedium="#FFA1A5B2" BaseMediumHigh="#FFB7BCCA" BaseMediumLow="#FF747881"
-									   ChromeAltLow="#FFB7BCCA" ChromeBlackHigh="#FF000000" ChromeBlackLow="#FFB7BCCA"
-									   ChromeBlackMedium="#FF000000" ChromeBlackMediumLow="#FF000000" ChromeDisabledHigh="#FF474A51"
-									   ChromeDisabledLow="#FFA1A5B2" ChromeGray="#FF8A8E9A" ChromeHigh="#FF8A8E9A"
-									   ChromeLow="#FF0E2139" ChromeMedium="#FF1C2B3F" ChromeMediumLow="#FF39404B"
-									   ChromeWhite="#FFFFFFFF" ListLow="#FF1C2B3F" ListMedium="#FF474A51"/>
+									   Accent="#FF363636" AltHigh="#FF000000" AltLow="#FF000000" AltMedium="#FF000000" AltMediumHigh="#FF000000" AltMediumLow="#FF000000" BaseHigh="#FFFFFFFF" BaseLow="#FF645C6E" BaseMedium="#FFB5ADBE" BaseMediumHigh="#FFC9C1D2" BaseMediumLow="#FF8C8496" ChromeAltLow="#FFC9C1D2" ChromeBlackHigh="#FF000000" ChromeBlackLow="#FFC9C1D2" ChromeBlackMedium="#FF000000" ChromeBlackMediumLow="#FF000000" ChromeDisabledHigh="#FF645C6E" ChromeDisabledLow="#FFB5ADBE" ChromeGray="#FFA199AA" ChromeHigh="#FFA199AA" ChromeLow="#FF312344" ChromeMedium="#FF3E314E" ChromeMediumLow="#FF574E63" ChromeWhite="#FFFFFFFF" ListLow="#FF3E314E" ListMedium="#FF645C6E"/>
 			</FluentTheme.Palettes>
 		</FluentTheme>
 
@@ -47,6 +48,13 @@
 		<Style Selector="TextBlock">
 			<Setter Property="FontFamily" Value="{StaticResource MontserratFont}"/>
 			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="Button">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
 		</Style>
 	</Application.Styles>
 </Application>

@@ -17,27 +17,56 @@
 	</UserControl.Resources>
 
 	<UserControl.Styles>
-		<Style Selector="Button">
-			<Setter Property="HorizontalAlignment" Value="Stretch"/>
-			<Setter Property="VerticalAlignment" Value="Stretch"/>
-			<Setter Property="HorizontalContentAlignment" Value="Center"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-		</Style>
-		
 		<Style Selector="Button.btn_fileAwait">
-			<Setter Property="Margin" Value="2"/>
+			<Setter Property="Margin" Value="1"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate>
 						<Grid>
 							<Label>
-								<ContentPresenter/>
+								<ContentPresenter Content="{Binding $parent[Button].Content}"/>
 							</Label>
-							<Button Content="{Binding $parent[Button].Tag}"/>
+							<Button Content="{Binding $parent[Button].Tag}"
+									Command="{Binding $parent[Button].Command}"/>
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn_fileAwait /template/ Label">
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+		</Style>
+
+		<Style Selector="Button.btn_fileAwait Path">
+			<Setter Property="Stroke" Value="{DynamicResource PathColor}"/>
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Margin" Value="20 -5 20 0"/>
+			<Setter Property="RenderTransform" Value="scale(0)"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.33" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn_fileAwait Label">
+			<Setter Property="Opacity" Value="0"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.33" Easing="CircularEaseInOut"/>
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.btn_fileAwait:pointerover Path">
+			<Setter Property="RenderTransform" Value="scale(1.5)"/>
+		</Style>
+			
+		<Style Selector="Button.btn_fileAwait:pointerover Label">
+			<Setter Property="Opacity" Value="1"/>
 		</Style>
 	</UserControl.Styles>
 
@@ -65,7 +94,7 @@
 			</Button>
 
 			<Button Classes="btn_fileAwait" Grid.Row="2" Grid.ColumnSpan="2"
-					Command="{Binding PeekFolderCommand}" Tag="ПАПКА">
+					Command="{Binding PeekFolderCommand}" Tag="СРАВНИТЬ">
 				<Path Data="{StaticResource folder_open_regular}"/>
 			</Button>
 		</Grid>

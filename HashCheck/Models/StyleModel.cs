@@ -16,5 +16,11 @@ namespace HashCheck.Models
 
         [ObservableProperty]
         private ExperimentalAcrylicBorder windowBackground;
+
+        [ObservableProperty]
+        private SolidColorBrush colorPrimary;
+
+        [ObservableProperty]
+        private SolidColorBrush colorBase;
     }
 }

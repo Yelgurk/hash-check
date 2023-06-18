@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -60,8 +61,22 @@ namespace HashCheck.ViewModels
 
             StylesList = new ObservableCollection<StyleModel>()
             {
-                new StyleModel() { Name = "Светлая", Resource = ThemeVariant.Light, WindowBackground = MainWindow.LightWindowBackground },
-                new StyleModel() { Name = "Тёмная", Resource = ThemeVariant.Dark, WindowBackground = MainWindow.DarkWindowBackground }
+                new StyleModel()
+                {
+                    Name = "Светлая",
+                    Resource = ThemeVariant.Light,
+                    WindowBackground = MainWindow.LightWindowBackground,
+                    ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemePrimary"]! },
+                    ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! }
+                },
+                new StyleModel()
+                {
+                    Name = "Тёмная",
+                    Resource = ThemeVariant.Dark,
+                    WindowBackground = MainWindow.DarkWindowBackground,
+                    ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemePrimary"]! },
+                    ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! }
+                }
             };
 
             this.StyleSelected = StylesList[SettingFile.Theme < StylesList.Count ? SettingFile.Theme : 0];
