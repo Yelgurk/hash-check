@@ -9,42 +9,112 @@
 	<UserControl.DataContext>
 		<vm:AnalysisResultVM/>
 	</UserControl.DataContext>
+	
 	<UserControl.Resources>
 		<StreamGeometry x:Key="note_regular">M17.75,3 C19.5449254,3 21,4.45507456 21,6.25 L21,13.1286797 C21,13.7254168 20.7629471,14.2977131 20.3409903,14.7196699 L14.7196699,20.3409903 C14.2977131,20.7629471 13.7254168,21 13.1286797,21 L6.25,21 C4.45507456,21 3,19.5449254 3,17.75 L3,6.25 C3,4.45507456 4.45507456,3 6.25,3 L17.75,3 Z M17.75,4.5 L6.25,4.5 C5.28350169,4.5 4.5,5.28350169 4.5,6.25 L4.5,17.75 C4.5,18.7164983 5.28350169,19.5 6.25,19.5 L13,19.5 L13,16.25 C13,14.5169685 14.3564548,13.1007541 16.0655761,13.0051448 L16.25,13 L19.5,13 L19.5,6.25 C19.5,5.28350169 18.7164983,4.5 17.75,4.5 Z M18.439,14.5 L16.25,14.5 C15.3318266,14.5 14.5788077,15.2071103 14.5058012,16.1064728 L14.5,16.25 L14.5,18.439 L18.439,14.5 Z</StreamGeometry>
+		<StreamGeometry x:Key="arrow_curve_left_regular">M8 6.75C8 6.33579 8.33578 6 8.75 6H15.75C18.0865 6 20.0117 6.78107 21.25 8.01578C22.4814 9.2436 23 10.8763 23 12.5C23 14.1237 22.4814 15.7564 21.25 16.9842C20.0117 18.2189 18.0865 19 15.75 19H7.56066L10.7803 22.2197C11.0732 22.5126 11.0732 22.9874 10.7803 23.2803C10.4874 23.5732 10.0126 23.5732 9.71967 23.2803L5.21967 18.7803C5.07902 18.6397 5 18.4489 5 18.25C5 18.0511 5.07902 17.8603 5.21967 17.7197L9.71967 13.2197C10.0126 12.9268 10.4874 12.9268 10.7803 13.2197C11.0732 13.5126 11.0732 13.9874 10.7803 14.2803L7.56066 17.5H15.75C17.7385 17.5 19.1758 16.8436 20.1 15.922C21.0311 14.9936 21.5 13.7513 21.5 12.5C21.5 11.2487 21.0311 10.0064 20.1 9.07797C19.1758 8.15643 17.7385 7.5 15.75 7.5H8.75C8.33578 7.5 8 7.16421 8 6.75Z</StreamGeometry>
 	</UserControl.Resources>
 
+	<UserControl.Styles>
+		<Style Selector="Path.path-fileIcon">
+			<Setter Property="Data" Value="{StaticResource note_regular}"/>
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Stroke" Value="{DynamicResource PathColor}"/>
+			<Setter Property="Margin" Value="0 -3 0 3"/>
+		</Style>
+
+		<Style Selector="ListBox.list-result">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Padding" Value="0 0 -4 0"/>
+			<Setter Property="Margin" Value="0 0 4 0"/>
+		</Style>
+
+		<Style Selector="ListBox.list-result Label.btn-openHashFile">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Button Tag="{Binding $parent[Label].Tag}"
+								Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
+								CommandParameter="{Binding $parent[Label].Content}">
+							<DockPanel>
+								<TextBlock Text="Открыть: "/>
+								<TextBlock Text="{Binding $parent[Label].Tag}"/>
+							</DockPanel>
+						</Button>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="Label.text-fileName">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<DockPanel>
+						<Path Classes="path-fileIcon"/>
+						<TextBlock Text="{Binding $parent[Label].Content}"/>
+					</DockPanel>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Label.text-fileName TextBlock">
+			<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+			<Setter Property="Margin" Value="5 0"/>
+		</Style>
+
+		<Style Selector="ListBox.list-result ListBoxItem:pointerover">
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+	</UserControl.Styles>
+	
 	<Grid DragDrop.AllowDrop="True" Background="Transparent">
-		<ListBox ItemsSource="{Binding Computator.Result}">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel>
-						<DockPanel>
-							<Path Data="{StaticResource note_regular}"/>
-							<TextBlock Text="{Binding FileName}"/>
-						</DockPanel>
-						<Button Classes="btn-open" Tag="{Binding FilePath}"
-								Content="{Binding}"/>
-						<ItemsControl ItemsSource="{Binding FileHash}">
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<StackPanel/>
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-							<ItemsControl.ItemTemplate>
-								<DataTemplate>
-									<Button Classes="hash-copy" Tag="{Binding HashValue}">
-										<TextBlock Text="{Binding HashName}"/>
-									</Button>
-								</DataTemplate>
-							</ItemsControl.ItemTemplate>
-						</ItemsControl>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
 
-		<Button Classes="btn-back" Content="Назад" Command="{Binding DisplayMainPage}"/>
+			<Button Classes="btn-contentPath" Tag="НАЗАД"
+					Command="{Binding DisplayMainPage}" Margin="10 0 10 5">
+				<Path Data="{StaticResource arrow_curve_left_regular}"/>
+			</Button>
 
+			<ListBox ItemsSource="{Binding Computator.Result}"
+					 Classes="list-result"
+					 Grid.Row="1">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid RowDefinitions="1*, 1*">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" MaxWidth="250"/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Label Classes="text-fileName" Content="{Binding FileName}"/>
+
+							<Label Classes="btn-openHashFile" Grid.Column="1"
+								   Content="{Binding}" Tag="{Binding FilePath}"/>
+							
+							<ItemsControl ItemsSource="{Binding FileHash}"
+										  Grid.Row="1" Grid.ColumnSpan="2">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel/>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Button Classes="hash-copy" Tag="{Binding HashValue}">
+											<TextBlock Text="{Binding HashName}"/>
+										</Button>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Grid>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
+		
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer" IsVisible="False"/>
 	</Grid>
 </UserControl>
