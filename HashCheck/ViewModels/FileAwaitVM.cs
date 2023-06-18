@@ -39,6 +39,17 @@ namespace HashCheck.ViewModels
         }
 
         [RelayCommand]
+        public async Task PeekFilesForCompare()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog() { AllowMultiple = true };
+
+            string[]? paths = await openFileDialog.ShowAsync(this.View.ParentWindow()!);
+
+            if (paths is not null)
+                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(paths, true);
+        }
+
+        [RelayCommand]
         public void GoToSettings() => (WindowContentService as IWindowContentService).Set<Settings>();
     }
 }

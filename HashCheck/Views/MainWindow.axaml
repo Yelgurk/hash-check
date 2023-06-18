@@ -17,7 +17,7 @@
         <vm:MainWindowVM/>
     </Design.DataContext>
 
-	<Border BorderThickness="1" BorderBrush="LightGray">
+	<Border BorderThickness="1" BorderBrush="{DynamicResource WindowBorderColor}">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="30"/>

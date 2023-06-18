@@ -4,61 +4,186 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:HashCheck.ViewModels"
 			 xmlns:v="clr-namespace:HashCheck.Views;assembly=HashCheck"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              x:Class="HashCheck.Views.FilesComparingResult"
 			 DragDrop.AllowDrop="True"
 			 Background="Transparent">
 	<UserControl.DataContext>
 		<vm:FilesComparingResultVM/>
 	</UserControl.DataContext>
+	
 	<UserControl.Resources>
-		<StreamGeometry x:Key="sign_out_regular">M12,4.35416625 L12,4.99998545 L13.7452668,5 C14.1245178,5 14.4381068,5.28151791 14.488266,5.64711331 L14.4952658,5.74875738 L14.502,10 L13.002,10 L12.9965084,6.5 L12,6.49998545 L12.0005455,11.004946 L13.002,11.0039854 L13.003,11 L14.504,11 L14.503,11.0039854 L19.442,11.0039854 L17.7195786,9.28023872 C17.4533579,9.0139263 17.4292236,8.59725845 17.6471286,8.30368449 L17.7197613,8.21957857 C17.9860737,7.95335788 18.4027416,7.9292236 18.6963155,8.14712863 L18.7804214,8.21976128 L21.7770341,11.2174065 C22.043008,11.4834721 22.0673769,11.8996744 21.850009,12.19325 L21.7775464,12.2773711 L18.7809337,15.2808167 C18.4883742,15.5740433 18.0135008,15.5745841 17.7202742,15.2820246 C17.4537046,15.0160615 17.4290241,14.5994256 17.646544,14.3055662 L17.7190663,14.2213652 L19.432,12.5039854 L12.0005455,12.504946 L12,17.0009854 L13.0139075,17.0014475 L13.007,13.5 L14.508,13.5 L14.5151512,17.7502049 C14.5157801,18.130345 14.23351,18.4448141 13.8670368,18.4945857 L13.7651512,18.5014475 L12,18.5009854 L12,19.25 C12,19.7163948 11.5788385,20.0696886 11.1195525,19.9885685 L2.61955246,18.4872805 C2.26120966,18.4239892 2,18.1126012 2,17.748712 L2,5.75 C2,5.38269391 2.26601447,5.06943276 2.62846599,5.00991252 L11.128466,3.61407877 C11.5850805,3.53909548 12,3.89143598 12,4.35416625 Z M10.5,5.23737333 L3.5,6.38688348 L3.5,17.1195701 L10.5,18.355925 L10.5,5.23737333 Z M8.50214976,11.5 C9.05562179,11.5 9.50429953,11.9486777 9.50429953,12.5021498 C9.50429953,13.0556218 9.05562179,13.5042995 8.50214976,13.5042995 C7.94867773,13.5042995 7.5,13.0556218 7.5,12.5021498 C7.5,11.9486777 7.94867773,11.5 8.50214976,11.5 Z</StreamGeometry>
-		<StreamGeometry x:Key="rewind_regular">M21.0015268,4.75008179 L21,18.7500818 C20.9999319,19.374155 20.2821581,19.7251581 19.7895445,19.3420142 L12.5,13.6726109 L12.5,18.7500818 C12.4999319,19.374155 11.7821581,19.7251581 11.2895445,19.3420142 L2.28954454,12.3420142 C1.90346505,12.0417301 1.90348904,11.4582003 2.28959321,11.157948 L11.29112,4.15794799 C11.7838024,3.77481559 12.5015268,4.12596134 12.5015268,4.75008179 L12.5,9.82661094 L19.79112,4.15794799 C20.2838024,3.77481559 21.0015268,4.12596134 21.0015268,4.75008179 Z M11.0013596,6.28344989 L3.97168109,11.7500502 L11.0001672,17.2166505 L11.0013596,6.28344989 Z M19.5013596,6.28344989 L12.5,11.7266109 L12.5,11.7726109 L19.5001672,17.2166505 L19.5013596,6.28344989 Z</StreamGeometry>
+		<StreamGeometry x:Key="arrow_curve_left_regular">M8 6.75C8 6.33579 8.33578 6 8.75 6H15.75C18.0865 6 20.0117 6.78107 21.25 8.01578C22.4814 9.2436 23 10.8763 23 12.5C23 14.1237 22.4814 15.7564 21.25 16.9842C20.0117 18.2189 18.0865 19 15.75 19H7.56066L10.7803 22.2197C11.0732 22.5126 11.0732 22.9874 10.7803 23.2803C10.4874 23.5732 10.0126 23.5732 9.71967 23.2803L5.21967 18.7803C5.07902 18.6397 5 18.4489 5 18.25C5 18.0511 5.07902 17.8603 5.21967 17.7197L9.71967 13.2197C10.0126 12.9268 10.4874 12.9268 10.7803 13.2197C11.0732 13.5126 11.0732 13.9874 10.7803 14.2803L7.56066 17.5H15.75C17.7385 17.5 19.1758 16.8436 20.1 15.922C21.0311 14.9936 21.5 13.7513 21.5 12.5C21.5 11.2487 21.0311 10.0064 20.1 9.07797C19.1758 8.15643 17.7385 7.5 15.75 7.5H8.75C8.33578 7.5 8 7.16421 8 6.75Z</StreamGeometry>
+		<StreamGeometry x:Key="text_align_distributed_regular">M4.21967,16.2197 C4.51256,15.9268 4.98744,15.9268 5.28033,16.2197 C5.54659364,16.4859727 5.57079942,16.902576 5.35294736,17.1961816 L5.28033,17.2803 L4.56066,18 L19.4393,18 L18.7197,17.2803 C18.4268,16.9874 18.4268,16.5126 18.7197,16.2197 C18.9859727,15.9534273 19.402576,15.9292207 19.6961816,16.1470802 L19.7803,16.2197 L21.7803,18.2197 C22.0465727,18.4859727 22.0707793,18.902576 21.8529198,19.1961816 L21.7803,19.2803 L19.7803,21.2803 C19.4874,21.5732 19.0126,21.5732 18.7197,21.2803 C18.4534273,21.0140273 18.4292207,20.597424 18.6470802,20.3038184 L18.7197,20.2197 L19.4393,19.5 L4.56066,19.5 L5.28033,20.2197 C5.57322,20.5126 5.57322,20.9874 5.28033,21.2803 C5.01406636,21.5465727 4.59739777,21.5707793 4.30378778,21.3529198 L4.21967,21.2803 L2.21967,19.2803 C1.95340636,19.0140273 1.92920058,18.597424 2.14705264,18.3038184 L2.21967,18.2197 L4.21967,16.2197 Z M21.25,11.5 C21.6642,11.5 22,11.8358 22,12.25 C22,12.6296833 21.7178347,12.9434889 21.3517677,12.9931531 L21.25,13 L2.75,13 C2.33579,13 2,12.6642 2,12.25 C2,11.8703167 2.28215688,11.5565111 2.64823019,11.5068469 L2.75,11.5 L21.25,11.5 Z M21.25,5 C21.6642,5 22,5.33579 22,5.75 C22,6.16421 21.6642,6.5 21.25,6.5 L2.75,6.5 C2.33579,6.5 2,6.16421 2,5.75 C2,5.33579 2.33579,5 2.75,5 L21.25,5 Z</StreamGeometry>
 	</UserControl.Resources>
 
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="1*"/>
-			<ColumnDefinition Width="50"/>
-			<ColumnDefinition Width="50"/>
-			<ColumnDefinition Width="1*"/>
-		</Grid.ColumnDefinitions>
+	<UserControl.Styles>
+		<Style Selector="TextBlock.file-name, Label.btn-open TextBlock">
+			<Setter Property="Grid.Row" Value="1"/>
+			<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="ToolTip.Tip" Value="{Binding $self.Text}"/>
+		</Style>
+
+		<Style Selector="TextBlock.file-name.name-left">
+			<Setter Property="Grid.Column" Value="0"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="10 0 30 0"/>
+		</Style>
+
+		<Style Selector="TextBlock.file-name.name-right">
+			<Setter Property="Grid.Column" Value="1"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="Margin" Value="30 0 10 0"/>
+		</Style>
+
+		<Style Selector="Path#path_fileIcon">
+			<Setter Property="Data" Value="{StaticResource text_align_distributed_regular}"/>
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Stroke" Value="{DynamicResource PathColor}"/>
+			<Setter Property="Grid.ColumnSpan" Value="2"/>
+			<Setter Property="Grid.RowSpan" Value="2"/>
+			<Setter Property="Grid.Row" Value="1"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="0 -2 0 2"/>
+			<Style.Animations>
+				<Animation Duration="0:0:1"
+						   IterationCount="INFINITE"
+						   PlaybackDirection="AlternateReverse"
+						   Easing="CircularEaseIn">
+					<KeyFrame Cue="0%">
+						<Setter Property="ScaleTransform.ScaleX" Value="1"/>
+						<Setter Property="ScaleTransform.ScaleY" Value="1"/>
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="ScaleTransform.ScaleX" Value="1.5"/>
+						<Setter Property="ScaleTransform.ScaleY" Value="1.5"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="Label.btn-open">
+			<Setter Property="Grid.Row" Value="2"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Button Command="{Binding $parent[UserControl].DataContext.OpenFolderSelectFileCommand}"
+							CommandParameter="{Binding $parent[Label].Content}">
+						<DockPanel>
+							<TextBlock Text="Открыть:"/>
+							<TextBlock Text="{Binding $parent[Label].Content.FilePath}"/>
+						</DockPanel>
+					</Button>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Label.btn-open.btn-left">
+			<Setter Property="Grid.Column" Value="0"/>
+			<Setter Property="Margin" Value="10 0 30 0"/>
+		</Style>
+		
+		<Style Selector="Label.btn-open.btn-right">
+			<Setter Property="Grid.Column" Value="1"/>
+			<Setter Property="Margin" Value="30 0 10 0"/>
+		</Style>
+
+		<Style Selector="ScrollViewer.compare-result">
+			<Setter Property="Grid.ColumnSpan" Value="2"/>
+			<Setter Property="Grid.Row" Value="3"/>
+			<Setter Property="Padding" Value="10 0 -4 0"/>
+			<Setter Property="Margin" Value="0 5 4 0"/>
+		</Style>
+
+		<Style Selector="Label.hash-left">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="70"/>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Text="{Binding $parent[Label].Tag}" Grid.Column="0" HorizontalAlignment="Right"/>
+						<Button Content="{Binding $parent[Label].Content}" Grid.Column="1"
+								Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboardCommand}"
+								CommandParameter="{Binding $parent[Label].Tag}"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector="Label.hash-right">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+
+						<Button Content="{Binding $parent[Label].Content}"
+								Command="{Binding $parent[UserControl].DataContext.CopyHashToClipboardCommand}"
+								CommandParameter="{Binding $parent[Label].Tag}"/>
+						<TextBlock Text="{Binding $parent[Label].Tag}" Grid.Column="1" HorizontalAlignment="Left" Margin="2 0 15 0"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Label.hash-right TextBlock, Label.hash-left TextBlock">
+			<Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Foreground" Value="#CD5C5C"/>
+		</Style>
+		
+		<Style Selector="Label.hash-right Button, Label.hash-left Button">
+			<Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="2 5"/>
+			<Setter Property="Background" Value="#CD5C5C"/>
+		</Style>
+
+		<Style Selector="Label.status-equals Button">
+			<Setter Property="Background" Value="#BDECB6"/>
+			<Setter Property="Foreground" Value="Black"/>
+		</Style>
+
+		<Style Selector="Label.status-equals TextBlock">
+			<Setter Property="Foreground" Value="{DynamicResource PathColor}"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid ColumnDefinitions="1*, 1*">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20"/>
-			<RowDefinition Height="32"/>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 
-		<Button Classes="btn-back" Command="{Binding DisplayMainPage}">
-			<Path Data="{StaticResource rewind_regular}" Classes="btn-back-content"/>
+		<Button Classes="btn-contentPath" Tag="НАЗАД" Grid.ColumnSpan="2"
+				Command="{Binding DisplayMainPage}" Margin="10 0 10 5">
+			<Path Data="{StaticResource arrow_curve_left_regular}"/>
 		</Button>
 
-		<TextBlock Text="{Binding Computator.Result[0].FileName}"
-				   HorizontalAlignment="Right"
-				   Classes="tb-filename"/>
+		<TextBlock Classes="file-name name-left"
+				   Text="{Binding Computator.Result[0].FileName}"/>
+		<TextBlock Classes="file-name name-right"
+				   Text="{Binding Computator.Result[1].FileName}"/>
 
-		<TextBlock Text="{Binding Computator.Result[1].FileName}"
-				   HorizontalAlignment="Left"
-				   Grid.Column="2"
-				   Classes="tb-filename"/>
+		<Path Name="path_fileIcon"/>
 
-		<Button Classes="btn-open"
-				Tag="{Binding Computator.Result[0].FilePath}"
-				Content="{Binding Computator.Result[0]}"
-				Grid.Column="0" Margin="0 0 -24 0"/>
+		<Label Classes="btn-open btn-left" Content="{Binding Computator.Result[0]}"/>
 
-		<Button Classes="btn-open"
-				Tag="{Binding Computator.Result[1].FilePath}"
-				Content="{Binding Computator.Result[1]}"
-				Grid.Column="3" Margin="-24 0 0 0"/>
+		<Label Classes="btn-open btn-right" Content="{Binding Computator.Result[1]}"/>
 
-		<ScrollViewer Grid.ColumnSpan="4" Grid.Row="2"
-					  VerticalScrollBarVisibility="Visible"
-					  Margin="18 0 0 0">
-			<Grid ColumnDefinitions="1*, 1*"
-				  Width="{Binding $parent[Grid].Bounds.Width}">
-				<ItemsControl ItemsSource="{Binding Computator.Result[0].FileHash}"
-							  Grid.Column="0">
+		<ScrollViewer Classes="compare-result">
+			<Grid ColumnDefinitions="1*, 1*">
+				<ItemsControl ItemsSource="{Binding Computator.Result[0].FileHash}" Grid.Column="0">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -66,15 +191,13 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button Classes="hash-copy right" Tag="{Binding HashValue}">
-								<TextBlock Text="{Binding HashName}"/>
-							</Button>
+							<Label Classes="hash-left" Tag="{Binding HashValue}" Content="{Binding HashName}"
+								   Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 
-				<ItemsControl ItemsSource="{Binding Computator.Result[1].FileHash}"
-							  Grid.Column="1">
+				<ItemsControl ItemsSource="{Binding Computator.Result[1].FileHash}" Grid.Column="1">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -82,18 +205,17 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button Classes="hash-copy left" Tag="{Binding HashValue}">
-								<TextBlock Text="{Binding HashName}"/>
-							</Button>
+							<Label Classes="hash-right" Tag="{Binding HashValue}" Content="{Binding HashName}"
+								   Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 			</Grid>
 		</ScrollViewer>
-
+		
 		<v:DragDropPopupControl Name="DragDropPlace_ChoiceContainer"
 								IsVisible="False"
-								Grid.ColumnSpan="4"
-								Grid.RowSpan="3"/>
+								Grid.ColumnSpan="2"
+								Grid.RowSpan="5"/>
 	</Grid>
 </UserControl>

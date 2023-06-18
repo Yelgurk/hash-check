@@ -108,7 +108,7 @@
 			<ColumnDefinition/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
-		<Grid Grid.ColumnSpan="2" Background="Black" Opacity="0.8"/>
+		<Grid Grid.ColumnSpan="2" Background="Black" Opacity="0.5"/>
 
 		<Grid Grid.Column="0">
 			<Border Classes="dragdrop-choise">

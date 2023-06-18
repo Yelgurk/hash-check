@@ -120,7 +120,8 @@
 								<ColumnDefinition Width="Auto" MaxWidth="250"/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
-							<Label Classes="text-fileName" Content="{Binding FileName}"/>
+							<Label Classes="text-fileName" Content="{Binding FileName}"
+								   ToolTip.Tip="{Binding FileName}"/>
 
 							<Label Classes="btn-openHashFile" Grid.Column="1"
 								   Content="{Binding}" Tag="{Binding FilePath}"/>

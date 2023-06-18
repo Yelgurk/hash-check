@@ -19,11 +19,13 @@
 				<ResourceDictionary x:Key="Default">
 					<SolidColorBrush x:Key="PathColor" Color="Black"/>
 					<SolidColorBrush x:Key="CheckBoxColor" Color="{StaticResource LightThemeBase}"/>
+					<SolidColorBrush x:Key="WindowBorderColor" Color="LightGray"/>
 				</ResourceDictionary>
 				
 				<ResourceDictionary x:Key="Dark">
 					<SolidColorBrush x:Key="PathColor" Color="White"/>
 					<SolidColorBrush x:Key="CheckBoxColor" Color="{StaticResource DarkThemeBase}"/>
+					<SolidColorBrush x:Key="WindowBorderColor" Color="Gray"/>
 				</ResourceDictionary>
 			</ResourceDictionary.ThemeDictionaries>
 		</ResourceDictionary>
@@ -48,6 +50,11 @@
 		<Style Selector="TextBlock">
 			<Setter Property="FontFamily" Value="{StaticResource MontserratFont}"/>
 			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="ToolTip">
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="BorderThickness" Value="0"/>
 		</Style>
 
 		<Style Selector="Button">
