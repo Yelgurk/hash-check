@@ -50,7 +50,8 @@ public partial class SettingsVM : VMBase
             Resource = ThemeVariant.Light,
             WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.WhiteSmoke.Color),
             ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemePrimary"]! },
-            ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! }
+            ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! },
+            IsTransparent = true
         },
         new StyleModel()
         {
@@ -58,7 +59,8 @@ public partial class SettingsVM : VMBase
             Resource = ThemeVariant.Dark,
             WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.Black.Color),
             ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemePrimary"]! },
-            ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! }
+            ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! },
+            IsTransparent = true
         }
     };
 
@@ -74,6 +76,7 @@ public partial class SettingsVM : VMBase
 
         if (!File.Exists(SettingPath))
         {
+            SettingFile.Theme = StylesList[0];
             SettingFile.SaveSettings(SettingPath);
             (new WindowContentService() as IWindowContentService).Set<Settings>();
         }
