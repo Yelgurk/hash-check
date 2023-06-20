@@ -9,12 +9,10 @@ public partial class AnalysisResult : UserControl
     public AnalysisResult() : this(new WindowContentService())
     { }
 
-    public AnalysisResult(IWindowContentService _windowContentService)
+    public AnalysisResult(WindowContentService windowContentService)
     {
         this.InitializeComponent(true);
-        this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = (WindowContentService)_windowContentService };
-
-
+        this.DataContext = new AnalysisResultVM() { View = this, WindowContentService = windowContentService };
         this.AddHandler(DragDrop.DragEnterEvent, (o, e) => { this.FindControl<UserControl>("DragDropPlace_ChoiceContainer").IsVisible = true; });
     }
 }

@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using HashCheck.Models.Interface;
 using HashCheck.ViewModels;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HashCheck.Models
 {
@@ -53,7 +54,7 @@ namespace HashCheck.Models
             set
             {
                 if (SetProperty(ref isTransparent, value))
-                    SettingsVM.SettingFile.SaveSettings(SettingsVM.SettingPath);
+                    App.Host!.Services.GetService<SettingFile>()!.SaveSettings(SettingsVM.SettingPath);
             }
         }
 

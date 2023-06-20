@@ -46,4 +46,8 @@
   <ItemGroup>
     <AvaloniaResource Include="Fonts\Montserrat-Regular.ttf" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\HashCheck.Domain\HashCheck.Domain.csproj" />
+  </ItemGroup>
 </Project>

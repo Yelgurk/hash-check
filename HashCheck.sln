@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCheck", "HashCheck\HashCheck.csproj", "{6477F210-3298-4E19-ACBE-E159E754DBE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCheck.Domain", "HashCheck.Domain\HashCheck.Domain.csproj", "{95FD006C-484B-4154-97C4-74597CA1A97A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6477F210-3298-4E19-ACBE-E159E754DBE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95FD006C-484B-4154-97C4-74597CA1A97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95FD006C-484B-4154-97C4-74597CA1A97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95FD006C-484B-4154-97C4-74597CA1A97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95FD006C-484B-4154-97C4-74597CA1A97A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,44 +1,39 @@
-﻿using Avalonia;
-using HashCheck.InterProcAPI;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 
+using Avalonia;
+
+using HashCheck.InterProcAPI;
+
 namespace HashCheck;
 
-internal class Program
+internal abstract class Program
 {
-    public static readonly string ServerArg = "[server]";
-    private static Mutex _mutex = null;
-    public static InterProcServer IPAPI_server;
+    public const string ServerArg = "[server]";
+    public static InterProcServer? IpApiServer;
 
     [STAThread]
-    public static void Main(string[] args)
+    public static int Main(string[] args)
     {
-        bool CreatedAppInstatnce;
-        const string AppName = "HashCheckApp";
-        _mutex = new Mutex(true, AppName, out CreatedAppInstatnce);
+        const string appName = "HashCheckApp";
+        _ = new Mutex(true, appName, out var createdAppInstance);
 
-        if (!CreatedAppInstatnce)
+        if (!createdAppInstance)
         {
             if (args.Length > 0)
-                new InterProcClient(args);
-            Environment.Exit(0);
+            {
+                _ = new InterProcClient(args);
+            }
+            return 0;
         }
-        else
-        {
-            IPAPI_server = new InterProcServer();
-            BuildAvaloniaApp()
-                .StartWithClassicDesktopLifetime(
-                    args.Length == 0 ?
-                    new string[] { ServerArg } :
-                    args.Append(ServerArg).ToArray()
-                    );
-        }
-    }
 
-    public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .LogToTrace();
+        IpApiServer = new InterProcServer();
+        _ = AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace()
+                .StartWithClassicDesktopLifetime(args.Append(ServerArg).ToArray());
+
+        return 0;
+    }
 }

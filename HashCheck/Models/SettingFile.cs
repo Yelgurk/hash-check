@@ -18,24 +18,19 @@ public partial class SettingFile : ObservableObject, IDisposable
     [JsonConstructor]
     public SettingFile() { }
 
-    public SettingFile(HashComputator hashComputator)
-    {
-        this.Hashes = hashComputator.Hashes;
-    }
-
     public void SaveSettings(string path)
     {
         try
         {
-            using (FileStream fs = new FileStream(path, FileMode.Create))
-                JsonSerializer.Serialize<SettingFile>(fs, this);
+            using FileStream fs = new FileStream(path, FileMode.Create);
+            JsonSerializer.Serialize(fs, this);
         }
         catch { }
     }
 
     public void LoadSettings(string path)
     {
-        bool IsDataValid = true;
+        bool isDataValid = true;
 
         using (FileStream fs = new FileStream(path, FileMode.Open))
         {
@@ -50,11 +45,11 @@ public partial class SettingFile : ObservableObject, IDisposable
                             progHash.LoadSelectState = settHash.IsSelected;
             }
             else
-                IsDataValid = false;
+                isDataValid = false;
         }
 
-        if (!IsDataValid)
-        this.SaveSettings(path);
+        if (!isDataValid)
+            this.SaveSettings(path);
     }
 
     public void Dispose() => Hashes.Clear();

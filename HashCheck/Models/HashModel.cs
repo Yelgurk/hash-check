@@ -9,15 +9,9 @@ namespace HashCheck.Models;
 public partial class HashModel : ObservableObject
 {
     [ObservableProperty]
-    private string hashName;
+    private string? _hashName;
 
-    [ObservableProperty]
-    private string hashValue;
-
-    [JsonIgnore]
-    public Func<string, string> HashMethod { get; init; }
-
-    private bool _isSelected = false;
+    private bool _isSelected;
 
     public bool IsSelected
     {

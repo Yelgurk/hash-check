@@ -110,7 +110,7 @@
 				<Path Data="{StaticResource arrow_curve_left_regular}"/>
 			</Button>
 
-			<ListBox ItemsSource="{Binding Computator.Result}"
+			<ListBox ItemsSource="{Binding Results}"
 					 Classes="list-result"
 					 Grid.Row="1">
 				<ListBox.ItemTemplate>
@@ -123,11 +123,11 @@
 							<Label Classes="text-fileName" Content="{Binding FileName}"
 								   ToolTip.Tip="{Binding FileName}"/>
 
-							<Label Classes="btn-openHashFile" Grid.Column="1"
+							<Label Classes="btn-openHashFile" Grid.Row="0" Grid.Column="1"
 								   Content="{Binding}" Tag="{Binding FilePath}"/>
 							
-							<ItemsControl ItemsSource="{Binding FileHash}"
-										  Grid.Row="1" Grid.ColumnSpan="2">
+							<ItemsControl ItemsSource="{Binding FileHashes}"
+										  Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
 								<ItemsControl.ItemsPanel>
 									<ItemsPanelTemplate>
 										<StackPanel/>
@@ -135,8 +135,8 @@
 								</ItemsControl.ItemsPanel>
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-										<Label Classes="btn-hashCopy" Tag="{Binding HashValue}"
-											   Content="{Binding HashName}"/>
+										<Label Classes="btn-hashCopy" Tag="{Binding HashValueAsString}"
+											   Content="{Binding HashAlgorithmTypeAsString}"/>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>

@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace HashCheck.ViewModels;
 
-public partial class SettingsVM : VMBase
+public class SettingsVM : VMBase
 {
     private StyleModel? _styleSelected;
 
@@ -64,7 +64,7 @@ public partial class SettingsVM : VMBase
         }
     };
 
-    public static SettingFile SettingFile { get; private set; }
+    public SettingFile SettingFile { get; set; }
 
     private static readonly string SettingFileName = "settings.json";
 

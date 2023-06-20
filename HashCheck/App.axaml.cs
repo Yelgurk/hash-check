@@ -34,8 +34,7 @@ public partial class App : Application
                 services.AddSingleton<FileAwait>();
                 services.AddSingleton<AnalysisResult>();
                 services.AddSingleton<FilesComparingResult>();
-                services.AddTransient<IWindowContentService, WindowContentService>();
-                services.AddSingleton<HashComputator>();
+                services.AddTransient<WindowContentService>();
                 services.AddSingleton<SettingFile>();
                 services.AddSingleton<Settings>();
             })
@@ -52,7 +51,7 @@ public partial class App : Application
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
 
             if (desktop.Args.Contains(Program.ServerArg))
-                desktop!.Exit += (sender, args) => Program.IPAPI_server.ShutdownAsync();
+                desktop!.Exit += (sender, args) => Program.IpApiServer.ShutdownAsync();
 
             if (desktop.Args[0] != Program.ServerArg)
                 App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(desktop.Args.Take(desktop.Args.Length - 1).ToArray());
@@ -69,7 +68,7 @@ public interface IWindowContentService
 
 public class WindowContentService : IWindowContentService
 {
-    T IWindowContentService.Set<T>()
+    public T Set<T>() where T : notnull
     {
         App.Host!.Services.GetRequiredService<MainWindow>()!.SetContent(App.Host!.Services.GetRequiredService<T>()!);
         return App.Host!.Services.GetRequiredService<T>()!;

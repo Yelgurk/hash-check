@@ -13,10 +13,6 @@ namespace HashCheck.ViewModels
 {
     public partial class FilesComparingResultVM : VMBase
     {
-        public HashComputator Computator { get; init; }
-
-        public FilesComparingResultVM() => this.Computator = App.Host!.Services.GetRequiredService<HashComputator>();
-
         [RelayCommand]
         public async Task OpenFolderSelectFile(ResultModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
 
