@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HashCheck.Models
 {
-    public partial class ResultModel : ObservableObject
+    public partial class ResultHashModel : ObservableObject
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FileName))]
@@ -17,6 +17,6 @@ namespace HashCheck.Models
         public string FilePath => string.IsNullOrEmpty(FileFullPath) ? "" : FileFullPath!.Substring(0, FileFullPath.LastIndexOf('\\'));
 
         [ObservableProperty]
-        private List<CalculatedHashResult>? _fileHashes;
+        private List<CalculatedHashResult> _fileHashes = new();
     }
 }

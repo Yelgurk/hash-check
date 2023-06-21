@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Gemstone.Collections.CollectionExtensions;
+using HashCheck.Domain;
 
 namespace HashCheck.ViewModels
 {
@@ -19,34 +21,66 @@ namespace HashCheck.ViewModels
         [RelayCommand]
         public async Task PeekFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog() { AllowMultiple = true };
+            OpenFileDialog openFileDialog = new() { AllowMultiple = true };
 
-            string[]? paths = await openFileDialog.ShowAsync(this.View.ParentWindow()!);
+            var paths = await openFileDialog.ShowAsync(View.ParentWindow()!) ?? Array.Empty<string>();
 
-            if (paths is not null)
-                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(paths);
+            var resultHashModels = await App.Host!.Services
+                .GetRequiredService<HashComputeService>()
+                .ComputeHashesFor(new FilePathsOrDirectoryPath(paths.ToList()));
+
+            App.Host.Services
+                .GetRequiredService<WindowContentService>()
+                .Set<AnalysisResult>()
+                .DataContext?.Cast<AnalysisResultVM>()
+                ?.Results.AddRange(resultHashModels);
         }
 
         [RelayCommand]
         public async Task PeekFolder()
         {
-            OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+            OpenFolderDialog openFolderDialog = new();
 
-            string? path = await openFolderDialog.ShowAsync(this.View.ParentWindow()!);
+            var path = await openFolderDialog.ShowAsync(View.ParentWindow()!);
 
             if (path is not null && Directory.Exists(path))
-                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(new[] { path });
+            {
+                var resultHashModels = await App.Host!.Services
+                    .GetRequiredService<HashComputeService>()
+                    .ComputeHashesFor(new FilePathsOrDirectoryPath(path));
+
+                App.Host.Services
+                    .GetRequiredService<WindowContentService>()
+                    .Set<AnalysisResult>()
+                    .DataContext?.Cast<AnalysisResultVM>()
+                    ?.Results.AddRange(resultHashModels);
+            }
         }
 
         [RelayCommand]
         public async Task PeekFilesForCompare()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog() { AllowMultiple = true };
+            OpenFileDialog openFileDialog = new() { AllowMultiple = true };
 
-            string[]? paths = await openFileDialog.ShowAsync(this.View.ParentWindow()!);
+            var paths = await openFileDialog.ShowAsync(View.ParentWindow()!) ?? Array.Empty<string>();
 
-            if (paths is not null)
-                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(paths, true);
+            if (paths.Length is 2)
+            {
+                var resultHashModels = await App.Host!.Services
+                    .GetRequiredService<HashComputeService>()
+                    .ComputeHashesFor(new FilePathsOrDirectoryPath(paths.ToList()));
+
+                App.Host.Services
+                    .GetRequiredService<WindowContentService>()
+                    .Set<FilesComparingResult>()
+                    .DataContext?.Cast<FilesComparingResultVM>()
+                    ?.Do(vm => vm.FirstFile = resultHashModels[0])
+                    ?.Do(vm => vm.SecondFile = resultHashModels[1]);
+            }
+            else
+            {
+                // todo: incorrect files count for compare
+            }
         }
 
         [RelayCommand]

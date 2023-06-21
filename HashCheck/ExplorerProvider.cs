@@ -18,6 +18,14 @@ public static class Extensions
             observableCollection.Add(item);
         }
     }
+
+    public static T? Cast<T>(this object obj) where T : class => obj as T;
+
+    public static T Do<T>(this T obj, Action<T> action)
+    {
+        action(obj);
+        return obj;
+    }
 }
 
 public class ExplorerProvider

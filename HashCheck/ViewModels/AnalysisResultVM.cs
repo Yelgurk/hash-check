@@ -17,10 +17,10 @@ namespace HashCheck.ViewModels;
 
 public partial class AnalysisResultVM : VMBase
 {
-    public ObservableCollection<ResultModel> Results { get; set; } = new();
+    public ObservableCollection<ResultHashModel> Results { get; set; } = new();
 
     [RelayCommand]
-    async Task OpenFolderSelectFile(ResultModel file)
+    async Task OpenFolderSelectFile(ResultHashModel file)
     {
         ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
     }

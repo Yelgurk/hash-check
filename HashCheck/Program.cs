@@ -10,7 +10,6 @@ namespace HashCheck;
 
 internal abstract class Program
 {
-    public const string ServerArg = "[server]";
     public static InterProcServer? IpApiServer;
 
     [STAThread]
@@ -32,7 +31,7 @@ internal abstract class Program
         _ = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .StartWithClassicDesktopLifetime(args.Append(ServerArg).ToArray());
+                .StartWithClassicDesktopLifetime(args);
 
         return 0;
     }

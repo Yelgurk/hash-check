@@ -20,7 +20,7 @@ namespace HashCheck;
 //
 //    public List<string> FilePaths { get; set; } = new List<string>();
 //
-//    public ObservableCollection<ResultModel> Result { get; } = new ObservableCollection<ResultModel>();
+//    public ObservableCollection<ResultHashModel> Result { get; } = new ObservableCollection<ResultHashModel>();
 //
 //    public bool IsHashesEqual => Result.Count != 2 ? false : Result[0] == Result[1];
 //
@@ -72,7 +72,7 @@ namespace HashCheck;
 //        Result.Clear();
 //        await Task.Run(() =>
 //            FilePaths.ForEach(path => {
-//                Result.Add(new ResultModel() {
+//                Result.Add(new ResultHashModel() {
 //                    FileFullPath = path,
 //                    FileHash = new List<HashModel>(
 //                        Hashes.Where((hash) => hash.IsSelected)

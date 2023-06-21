@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EnumFastToStringGenerated;
+using Gemstone.Collections.CollectionExtensions;
 using HashCheck.Domain;
 using HashCheck.Models;
 using HashCheck.Views;
@@ -31,36 +32,11 @@ namespace HashCheck.ViewModels
             var files = e.Data.GetFileNames()!.ToList();
             var analysisResultVm = (WindowContentService.Set<AnalysisResult>().DataContext as AnalysisResultVM)!;
 
-            var hashAlgorithms = App.Host!.Services.GetRequiredService<SettingFile>()
-                .Hashes
-                .Where(h => h.IsSelected)
-                .Select(h => Enum.Parse<HashAlgorithmType>(h.HashName!))
-                .ToList();
-
-            await foreach (var (file, hashes) in HashApi.ComputeHashesAsync(new FilePathsOrDirectoryPath(files), hashAlgorithms))
-            {
-                var onlyComputedHashes = hashes
-                    .Where(cr => cr.IsHash)
-                    .Select(cr => cr.AsHash)
-                    .ToList();
-
-                if (onlyComputedHashes.Count is not 0)
-                {
-                    var calculatedHashResults = onlyComputedHashes
-                        .Select(h => new CalculatedHashResult
-                        {
-                            HashAlgorithmType = h.HashAlgorithm,
-                            HashValue = h.Hash
-                        })
-                        .ToList();
-                    
-                    analysisResultVm.Results.Add(new ResultModel
-                    {
-                        FileHashes = calculatedHashResults,
-                        FileFullPath = file
-                    });
-                }
-            }
+            var resultHashModels = await App.Host!.Services
+                .GetRequiredService<HashComputeService>()
+                .ComputeHashesFor(new FilePathsOrDirectoryPath(files));
+            
+            analysisResultVm.Results.AddRange(resultHashModels);
         }
 
         public async Task DropObjectForComparing(object sender, DragEventArgs e)
@@ -71,8 +47,27 @@ namespace HashCheck.ViewModels
                 // App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(, true);
             }
             
-            var files = e.Data.GetFileNames()!.ToArray();
+            var files = e.Data.GetFileNames()!.ToList();
+            var resultHashModels = await App.Host!.Services
+                .GetRequiredService<HashComputeService>()
+                .ComputeHashesFor(new FilePathsOrDirectoryPath(files));
 
+            VMBase? vm = resultHashModels.Count switch
+            {
+                <= 0 => null, // nothing
+                1 or > 2 => (WindowContentService.Set<AnalysisResult>().DataContext as AnalysisResultVM)!,
+                2 => (WindowContentService.Set<FilesComparingResult>().DataContext as FilesComparingResultVM)!,
+            };
+            
+            if (vm is AnalysisResultVM analysisResultVm)
+            {
+                analysisResultVm.Results.AddRange(resultHashModels);
+            }
+            else if (vm is FilesComparingResultVM filesComparingResultVm)
+            {
+                filesComparingResultVm.FirstFile = resultHashModels[0];
+                filesComparingResultVm.SecondFile = resultHashModels[1];
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
@@ -11,6 +13,8 @@ using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Gemstone.Collections.CollectionExtensions;
+using HashCheck.Domain;
 
 namespace HashCheck;
 
@@ -25,7 +29,7 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        THIS = THIS ?? this;
+        THIS ??= this;
 
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
@@ -37,6 +41,7 @@ public partial class App : Application
                 services.AddTransient<WindowContentService>();
                 services.AddSingleton<SettingFile>();
                 services.AddSingleton<Settings>();
+                services.AddSingleton<HashComputeService>();
             })
             .Build();
 
@@ -44,17 +49,38 @@ public partial class App : Application
         Host.Services.GetRequiredService<Settings>();
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = Host!.Services.GetRequiredService<MainWindow>();
+            desktop.Exit += (_, _) => Program.IpApiServer?.ShutdownAsync();
 
-            if (desktop.Args.Contains(Program.ServerArg))
-                desktop!.Exit += (sender, args) => Program.IpApiServer.ShutdownAsync();
+            if (!(desktop.Args?.Length > 0))
+            {
+                return;
+            }
 
-            if (desktop.Args[0] != Program.ServerArg)
-                App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(desktop.Args.Take(desktop.Args.Length - 1).ToArray());
+            var files = desktop.Args;
+            var forAnalyze = files
+                .SelectMany(p =>
+                {
+                    if (File.Exists(p))
+                        return new[] { p };
+                    if (Directory.Exists(p))
+                        return Directory.EnumerateFiles(p, "*", SearchOption.AllDirectories);
+                    return Enumerable.Empty<string>();
+                }).ToList();
+
+            var resultHashModels = await Host.Services
+                .GetRequiredService<HashComputeService>()
+                .ComputeHashesFor(new FilePathsOrDirectoryPath(forAnalyze));
+
+            Host.Services
+                .GetRequiredService<WindowContentService>()
+                .Set<AnalysisResult>()
+                .DataContext?.Cast<AnalysisResultVM>()
+                ?.Results.AddRange(resultHashModels);
         }
 
         base.OnFrameworkInitializationCompleted();

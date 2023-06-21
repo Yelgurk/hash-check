@@ -171,19 +171,21 @@
 		</Button>
 
 		<TextBlock Classes="file-name name-left"
-				   Text="{Binding Computator.Result[0].FileName}"/>
+				   Text="{Binding FirstFile.FileName}"/>
 		<TextBlock Classes="file-name name-right"
-				   Text="{Binding Computator.Result[1].FileName}"/>
+				   Text="{Binding SecondFile.FileName}"/>
 
 		<Path Name="path_fileIcon"/>
 
-		<Label Classes="btn-open btn-left" Content="{Binding Computator.Result[0]}"/>
+		<!-- redo -->
+		<Label Classes="btn-open btn-left" Content="{Binding FirstFile}"/>
 
-		<Label Classes="btn-open btn-right" Content="{Binding Computator.Result[1]}"/>
+		<!-- redo -->
+		<Label Classes="btn-open btn-right" Content="{Binding SecondFile}"/>
 
 		<ScrollViewer Classes="compare-result">
 			<Grid ColumnDefinitions="1*, 1*">
-				<ItemsControl ItemsSource="{Binding Computator.Result[0].FileHash}" Grid.Column="0">
+				<ItemsControl ItemsSource="{Binding FirstFile.FileHash}" Grid.Column="0">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -191,13 +193,13 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Label Classes="hash-left" Tag="{Binding HashValue}" Content="{Binding HashName}"
-								   Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>
+							<Label Classes="hash-left" Tag="{Binding HashValueAsString}" Content="{Binding HashName}"
+								   Classes.status-equals="{Binding $parent[UserControl].DataContext.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 
-				<ItemsControl ItemsSource="{Binding Computator.Result[1].FileHash}" Grid.Column="1">
+				<ItemsControl ItemsSource="{Binding SecondFile.FileHash}" Grid.Column="1">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -205,8 +207,8 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Label Classes="hash-right" Tag="{Binding HashValue}" Content="{Binding HashName}"
-								   Classes.status-equals="{Binding $parent[UserControl].DataContext.Computator.IsHashesEqual}"/>
+							<Label Classes="hash-right" Tag="{Binding HashValueAsString}" Content="{Binding HashName}"
+								   Classes.status-equals="{Binding $parent[UserControl].DataContext.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
