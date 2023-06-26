@@ -39,7 +39,6 @@ public partial class App : Application
                 services.AddSingleton<AnalysisResult>();
                 services.AddSingleton<FilesComparingResult>();
                 services.AddTransient<WindowContentService>();
-                services.AddSingleton<SettingFile>();
                 services.AddSingleton<Settings>();
                 services.AddSingleton<HashComputeService>();
             })

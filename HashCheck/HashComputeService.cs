@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using HashCheck.Domain;
 using HashCheck.Models;
@@ -9,20 +10,18 @@ namespace HashCheck;
 
 public sealed class HashComputeService
 {
-    private readonly SettingFile _settingFile;
-    
-    public HashComputeService(SettingFile settingFile)
-    {
-        this._settingFile = settingFile;
-    }
 
     public async Task<List<ResultHashModel>> ComputeHashesFor(FilePathsOrDirectoryPath where)
     {
-        var hashAlgorithms = _settingFile
-            .Hashes
+        if (SettingsService.SettingsFile == null)
+            if (SettingsService.LoadSettingsFromJSON(SettingsService.DefaultSettingFilePath)!)
+                return new List<ResultHashModel>();
+
+        var hashAlgorithms =
+            SettingsService.SettingsFile!
+            .SelectableHashModels!
             .Where(h => h.IsSelected)
-            .Select(h => Enum.Parse<HashAlgorithmType>(h.HashName!))
-            .ToList();
+            .Select(h => h.HashAlgorithm);
 
         return await HashApi.ComputeHashesAsync(where, hashAlgorithms)
             .Select(fileWithHashes =>

@@ -22,7 +22,7 @@ public partial class AnalysisResultVM : VMBase
     [RelayCommand]
     async Task OpenFolderSelectFile(ResultHashModel file)
     {
-        ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
+        //ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
     }
 
     [RelayCommand]

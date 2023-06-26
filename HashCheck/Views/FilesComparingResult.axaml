@@ -185,7 +185,7 @@
 
 		<ScrollViewer Classes="compare-result">
 			<Grid ColumnDefinitions="1*, 1*">
-				<ItemsControl ItemsSource="{Binding FirstFile.FileHash}" Grid.Column="0">
+				<ItemsControl ItemsSource="{Binding FirstFile.FileHashes}" Grid.Column="0">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -193,13 +193,13 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Label Classes="hash-left" Tag="{Binding HashValueAsString}" Content="{Binding HashName}"
+							<Label Classes="hash-left" Tag="{Binding HashValueAsString}" Content="{Binding HashAlgorithmTypeAsString}"
 								   Classes.status-equals="{Binding $parent[UserControl].DataContext.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 
-				<ItemsControl ItemsSource="{Binding SecondFile.FileHash}" Grid.Column="1">
+				<ItemsControl ItemsSource="{Binding SecondFile.FileHashes}" Grid.Column="1">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel/>
@@ -207,7 +207,7 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Label Classes="hash-right" Tag="{Binding HashValueAsString}" Content="{Binding HashName}"
+							<Label Classes="hash-right" Tag="{Binding HashValueAsString}" Content="{Binding HashAlgorithmTypeAsString}"
 								   Classes.status-equals="{Binding $parent[UserControl].DataContext.IsHashesEqual}"/>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>

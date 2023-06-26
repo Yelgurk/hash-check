@@ -44,7 +44,6 @@ namespace HashCheck.ViewModels
             if (!e.Data.Contains(DataFormats.Files))
             {
                 return;
-                // App.Host!.Services.GetRequiredService<HashComputator>().PathTreeParser(, true);
             }
             
             var files = e.Data.GetFileNames()!.ToList();

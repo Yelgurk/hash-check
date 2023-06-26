@@ -1,4 +1,4 @@
-﻿using Avalonia;
+﻿ using Avalonia;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using HashCheck.Models;
@@ -17,17 +17,16 @@ namespace HashCheck.ViewModels
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsHashesEqual))]
-        private ResultHashModel? _firstFile;
+        private ResultHashModel firstFile;
         
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsHashesEqual))]
-        private ResultHashModel? _secondFile;
+        private ResultHashModel secondFile;
 
-        public bool IsHashesEqual => FirstFile is not null && SecondFile is not null
-            && FirstFile.FileHashes.SequenceEqual(SecondFile.FileHashes);
+        public bool IsHashesEqual => FirstFile.Equals(SecondFile);
 
         [RelayCommand]
-        public async Task OpenFolderSelectFile(ResultHashModel file) => ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
+        public async Task OpenFolderSelectFile(ResultHashModel file) { /* открыть и выбрать файл в проводнике */ } //ExplorerProvider.OpenFolderAndSelectItem(file.FilePath, file.FileName);
 
         [RelayCommand]
         public async Task CopyHashToClipboard(string hash) => await this.View.ParentWindow()!.Clipboard!.SetTextAsync(hash);

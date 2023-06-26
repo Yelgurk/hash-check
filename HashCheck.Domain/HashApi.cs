@@ -55,9 +55,8 @@ public static class HashApi
         return (await ComputeHashAsync(fileStream, hashAlgorithmType, ct), hashAlgorithmType);
     }
 
-    public static async IAsyncEnumerable<(string FilePath, ComputeHashResultOr<FileNotExists> Hashes)> ComputeHashesAsync(
-        FilePathsOrDirectoryPath where, HashAlgorithmType hashAlgorithmType, 
-        [EnumeratorCancellation] CancellationToken ct = default)
+    public static async IAsyncEnumerable<(string FilePath, ComputeHashResultOr<FileNotExists> Hashes)>
+        ComputeHashesAsync(FilePathsOrDirectoryPath where, HashAlgorithmType hashAlgorithmType, [EnumeratorCancellation] CancellationToken ct = default)
     {
         var filesPaths = where.Match(
             filesPaths => filesPaths,
@@ -96,4 +95,11 @@ public static class HashApi
             yield return (filesPath, computedHashesList);
         }
     }
+
+    /*
+    public static IEnumerable<object> ComputeHashesAsync(FilePathsOrDirectoryPath where, IEnumerable<System.Security.Authentication.HashAlgorithmType> hashAlgorithmTypes)
+    {
+        throw new NotImplementedException();
+    }
+    */
 }

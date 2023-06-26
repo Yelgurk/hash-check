@@ -41,7 +41,7 @@
 						    Command="{Binding $parent[UserControl].DataContext.DisplayMainPage}">
 						<Path Data="{StaticResource arrow_curve_left_regular}"/>
 					</Button>
-					<ItemsControl ItemsSource="{Binding SettingFile.Hashes}"
+					<ItemsControl ItemsSource="{Binding AllExistedHashes}"
 								  Margin="0 5"
 								  Grid.Row="1">
 						<ItemsControl.ItemsPanel>
@@ -54,7 +54,7 @@
 								<Grid Classes="checkBox-hash">
 									<DockPanel>
 										<CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-										<TextBlock Text="{Binding HashName}" />
+										<TextBlock Text="{Binding HashAlgorithmName}" />
 									</DockPanel>
 								</Grid>
 							</DataTemplate>
@@ -82,8 +82,8 @@
 						<Path Data="{StaticResource arrow_curve_left_regular}"/>
 					</Button>
 					
-					<ListBox ItemsSource="{Binding StylesList}"
-							 SelectedItem="{Binding StyleSelected}"
+					<ListBox ItemsSource="{Binding AllExistedThemes}"
+							 SelectedItem="{Binding AppSelectedTheme, Mode=TwoWay}"
 							 VerticalAlignment="Top"
 							 HorizontalAlignment="Left"
 							 Margin="0 5"
@@ -107,7 +107,7 @@
 					</ListBox>
 					
 					<CheckBox Content="Прозрачный" Grid.Row="2"
-							  IsChecked="{Binding StyleSelected.TransparentSetter}"/>
+							  IsChecked="{Binding AppSelectedTheme.IsTransparent}"/>
 				</Grid>
 			</TabItem.Content>
 		</TabItem>

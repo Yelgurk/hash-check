@@ -1,94 +1,90 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Input;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Google.Protobuf.WellKnownTypes;
+using HashCheck.Domain;
 using HashCheck.Models;
 using HashCheck.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace HashCheck.ViewModels;
 
 public class SettingsVM : VMBase
 {
-    private StyleModel? _styleSelected;
+    private ThemeModel? _appSelectedTheme = null;
 
-    public StyleModel StyleSelected
+    public ThemeModel AppSelectedTheme
     {
-        get => _styleSelected ?? StylesList[0];
+        get => _appSelectedTheme ?? AllExistedThemes[0];
         set
         {
-            if (SetProperty(ref _styleSelected, value))
+            if (_appSelectedTheme is null)
+                SetProperty(ref _appSelectedTheme, value);
+            else
             {
-                SettingFile.Theme = value;
-                SettingFile.SaveSettings(SettingPath);
+                SetProperty(ref _appSelectedTheme, value);
+                SettingsService.SaveSettingIntoJSON(AllExistedHashes.ToList(), AppSelectedTheme);
             }
-
+            
             SetStyles(value);
-            OnPropertyChanged(nameof(value.TransparentSetter));
         }
     } 
 
-    public ObservableCollection<StyleModel> StylesList { get; } = new ObservableCollection<StyleModel>()
+    public ObservableCollection<ThemeModel> AllExistedThemes { get; } = new ObservableCollection<ThemeModel>()
     {
-        new StyleModel()
+        new ThemeModel()
         {
             Name = "Light",
             Resource = ThemeVariant.Light,
-            WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.WhiteSmoke.Color),
+            WindowBackground = ThemeModel.AcrylicBorderGenerator(Brushes.WhiteSmoke.Color),
             ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemePrimary"]! },
             ColorBase = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["LightThemeBase"]! },
             IsTransparent = true
         },
-        new StyleModel()
+        new ThemeModel()
         {
             Name = "Dark",
             Resource = ThemeVariant.Dark,
-            WindowBackground = StyleModel.AcrylicBorderGenerator(Brushes.Black.Color),
+            WindowBackground = ThemeModel.AcrylicBorderGenerator(Brushes.Black.Color),
             ColorPrimary = new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemePrimary"]! },
             ColorBase =  new SolidColorBrush() { Color = (Color)Application.Current!.Resources["DarkThemeBase"]! },
             IsTransparent = true
         }
     };
 
-    public SettingFile SettingFile { get; set; }
-
-    private static readonly string SettingFileName = "settings.json";
-
-    public static string SettingPath => $"{AppDomain.CurrentDomain.BaseDirectory}\\{SettingFileName}";
+    public ObservableCollection<SelectableHashModel> AllExistedHashes { get; } = new ObservableCollection<SelectableHashModel>(
+            Enum.GetValues<HashAlgorithmType>()
+                .Select(h => new SelectableHashModel() {
+                    HashAlgorithm = h,
+                    IsSelected = false
+                })
+        );
 
     public SettingsVM()
     {
-        SettingFile = App.Host!.Services.GetRequiredService<SettingFile>()!;
+        if (!SettingsService.LoadSettingsFromJSON())
+            SettingsService.SaveSettingIntoJSON(AllExistedHashes.ToList(), AppSelectedTheme);
 
-        if (!File.Exists(SettingPath))
-        {
-            SettingFile.Theme = StylesList[0];
-            SettingFile.SaveSettings(SettingPath);
-            (new WindowContentService() as IWindowContentService).Set<Settings>();
-        }
-        else
-            SettingFile.LoadSettings(SettingPath);
+        this.AppSelectedTheme = AllExistedThemes.Single(t => t.Index == SettingsService.SettingsFile!.ThemeModel!.Index);
+        this.AppSelectedTheme.IsTransparent = SettingsService.SettingsFile!.ThemeModel!.IsTransparent;
 
-        StyleModel Loaded = StylesList.Where((x) => x.IsEqual(SettingFile.Theme as StyleModel)).SingleOrDefault(StylesList[0]);
-        Loaded.IsTransparent = SettingFile.Theme.IsTransparent;
-        StyleSelected = Loaded;
+        this.AllExistedHashes
+            .Where(h => h.IsSelected != SettingsService.SettingsFile!.SelectableHashModels!.Single(x => x.HashAlgorithmName == h.HashAlgorithmName).IsSelected)
+            .Do(h => { foreach (SelectableHashModel LoadedHashesInfo in h) LoadedHashesInfo.IsSelected = !LoadedHashesInfo.IsSelected; });
+
+        foreach (SelectableHashModel SelectableHash in AllExistedHashes)
+            SelectableHash.WhenSelected = () => SettingsService.SaveSettingIntoJSON(AllExistedHashes.ToList(), AppSelectedTheme);
+
+        foreach (ThemeModel SelectableStyle in AllExistedThemes)
+            SelectableStyle.WhenSelected = () => SettingsService.SaveSettingIntoJSON(AllExistedHashes.ToList(), AppSelectedTheme);
     }
 
-    private void SetStyles(StyleModel Style)
+    private void SetStyles(ThemeModel Style)
     {
         App.Host!.Services.GetRequiredService<MainWindow>()!.SetBackground(Style.WindowBackground);
         App.SetTheme(Style.Resource);
