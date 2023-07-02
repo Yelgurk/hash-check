@@ -28,11 +28,14 @@ internal abstract class Program
         }
 
         IpApiServer = new InterProcServer();
-        _ = AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToTrace()
-                .StartWithClassicDesktopLifetime(args);
+        _ = BuildAvaloniaApp()
+            .StartWithClassicDesktopLifetime(args);
 
         return 0;
     }
+
+    private static AppBuilder BuildAvaloniaApp() 
+        => AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace();
 }
