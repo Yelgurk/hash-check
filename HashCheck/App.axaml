@@ -12,7 +12,7 @@
 			<Color x:Key="DarkThemeBase">#574E63</Color>
 			
 			<ResourceDictionary.ThemeDictionaries>
-				<ResourceDictionary x:Key="Default">
+				<ResourceDictionary x:Key="Light">
 					<SolidColorBrush x:Key="PathColor" Color="Black"/>
 					<SolidColorBrush x:Key="CheckBoxColor" Color="{StaticResource LightThemeBase}"/>
 					<SolidColorBrush x:Key="WindowBorderColor" Color="LightGray"/>
@@ -30,7 +30,7 @@
 	<Application.Styles>
 		<FluentTheme>
 			<FluentTheme.Palettes>
-				<ColorPaletteResources x:Key="Default"
+				<ColorPaletteResources x:Key="Light"
 									   Accent="#FF7CB036" AltHigh="#FFFFFFFF" AltLow="#FFFFFFFF" AltMedium="#FFFFFFFF" AltMediumHigh="#FFFFFFFF" AltMediumLow="#FFFFFFFF" BaseHigh="#FF000000" BaseLow="#FFC2DCC5" BaseMedium="#FF72997A" BaseMediumHigh="#FF3D6D48" BaseMediumLow="#FF588361" ChromeAltLow="#FF3D6D48" ChromeBlackHigh="#FF000000" ChromeBlackLow="#FFC2DCC5" ChromeBlackMedium="#FF3D6D48" ChromeBlackMediumLow="#FF72997A" ChromeDisabledHigh="#FFC2DCC5" ChromeDisabledLow="#FF72997A" ChromeGray="#FF588361" ChromeHigh="#FFC2DCC5" ChromeLow="#FFDFF5E4" ChromeMedium="#FFD9F0DE" ChromeMediumLow="#FFDFF5E4" ChromeWhite="#FFFFFFFF" ListLow="#FFD9F0DE" ListMedium="#FFC2DCC5"/>
 
 				<ColorPaletteResources x:Key="Dark"
